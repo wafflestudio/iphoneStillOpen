@@ -19,6 +19,9 @@
 @property (nonatomic, copy) NSString *subtitle;
 @property (nonatomic) int Opentime;
 @property (nonatomic) int Closetime;
+@property (nonatomic, copy) NSString * description;
+@property (nonatomic, copy) NSString * imageURL;
+
 
 
 @end

@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import <AddressBookUI/AddressBookUI.h>
 #import "storeAnnotation.h"
-#import "callOutView.h"
+#import "SlidingMessageViewController.h"
+#import "menuViewController.h"
+
 
 
 
@@ -21,12 +24,17 @@
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIView *helpBar;
-@property (weak, nonatomic) IBOutlet UIButton *timeButton;
-@property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (strong, nonatomic) IBOutlet UILongPressGestureRecognizer *longPress;
-@property (nonatomic, copy) storeAnnotation * userAnnotation;
 @property (weak, nonatomic) IBOutlet UILabel *helpLabel;
-@property (strong, nonatomic) UIViewController * annotationCallOut;
+@property (nonatomic, copy) storeAnnotation * userAnnotation;
+@property (nonatomic, copy) storeAnnotation * currentAnnotation;
+
+@property (nonatomic, retain) SlidingMessageViewController * callOutView;
+@property (nonatomic, retain) menuViewController * menuView;
+@property (nonatomic, copy) NSString * address;
+
+
+
 
 
 -(void) setAllAnnotations;
@@ -39,6 +47,8 @@
 
 -(void) receivedLongPress:(id) inputObject;
 -(void) annotationUpdater:(NSTimer * ) timer;
+-(NSString * ) getDistanceFromCurrentLocation:(storeAnnotation *) annotation;
+
 
 
 

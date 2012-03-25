@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB49D71A151EEB4100EB2E0D /* menuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB49D719151EEB4100EB2E0D /* menuViewController.m */; };
+		AB6CA89B151C1BE600B14B5C /* SlidingMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6CA89A151C1BE600B14B5C /* SlidingMessageViewController.m */; };
 		AB6EAE3215181E29005D8415 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB84DB8515172A520088DF73 /* Default@2x.png */; };
 		AB6EAE3315181E2E005D8415 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = AB84DB8715172A550088DF73 /* Default.png */; };
+		AB6ECD86151F4C750047B8C0 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6ECD85151F4C750047B8C0 /* AddressBookUI.framework */; };
 		AB80672315164E5A00BC4CD9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB80672215164E5A00BC4CD9 /* UIKit.framework */; };
 		AB80672515164E5A00BC4CD9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB80672415164E5A00BC4CD9 /* Foundation.framework */; };
 		AB80672715164E5A00BC4CD9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB80672615164E5A00BC4CD9 /* CoreGraphics.framework */; };
@@ -27,8 +30,6 @@
 		AB80676315164F5E00BC4CD9 /* waffle_logo2.png in Resources */ = {isa = PBXBuildFile; fileRef = AB80676215164F5E00BC4CD9 /* waffle_logo2.png */; };
 		AB80676E151650AD00BC4CD9 /* storeAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = AB80676D151650AD00BC4CD9 /* storeAnnotation.m */; };
 		ABAA1EF315175D1400C315E6 /* orangePin.png in Resources */ = {isa = PBXBuildFile; fileRef = ABAA1EF215175D1400C315E6 /* orangePin.png */; };
-		ABED1961151B56630012580A /* callOutView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABED195F151B56630012580A /* callOutView.m */; };
-		ABED1962151B56630012580A /* callOutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABED1960151B56630012580A /* callOutView.xib */; };
 		ABED196C151B61110012580A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABED196B151B61110012580A /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AB49D718151EEB4100EB2E0D /* menuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = menuViewController.h; sourceTree = "<group>"; };
+		AB49D719151EEB4100EB2E0D /* menuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = menuViewController.m; sourceTree = "<group>"; };
+		AB6CA899151C1BE600B14B5C /* SlidingMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlidingMessageViewController.h; sourceTree = "<group>"; };
+		AB6CA89A151C1BE600B14B5C /* SlidingMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlidingMessageViewController.m; sourceTree = "<group>"; };
+		AB6ECD85151F4C750047B8C0 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		AB80671E15164E5A00BC4CD9 /* stillOpen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = stillOpen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB80672215164E5A00BC4CD9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AB80672415164E5A00BC4CD9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -70,9 +76,6 @@
 		AB84DB8515172A520088DF73 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		AB84DB8715172A550088DF73 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		ABAA1EF215175D1400C315E6 /* orangePin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orangePin.png; sourceTree = "<group>"; };
-		ABED195E151B56630012580A /* callOutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = callOutView.h; sourceTree = "<group>"; };
-		ABED195F151B56630012580A /* callOutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = callOutView.m; sourceTree = "<group>"; };
-		ABED1960151B56630012580A /* callOutView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = callOutView.xib; sourceTree = "<group>"; };
 		ABED196B151B61110012580A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -81,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB6ECD86151F4C750047B8C0 /* AddressBookUI.framework in Frameworks */,
 				ABED196C151B61110012580A /* CoreLocation.framework in Frameworks */,
 				AB80675B15164E7700BC4CD9 /* MapKit.framework in Frameworks */,
 				AB80672315164E5A00BC4CD9 /* UIKit.framework in Frameworks */,
@@ -125,6 +129,7 @@
 		AB80672115164E5A00BC4CD9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AB6ECD85151F4C750047B8C0 /* AddressBookUI.framework */,
 				ABED196B151B61110012580A /* CoreLocation.framework */,
 				AB80675A15164E7700BC4CD9 /* MapKit.framework */,
 				AB80672215164E5A00BC4CD9 /* UIKit.framework */,
@@ -140,10 +145,11 @@
 			children = (
 				AB80673415164E5A00BC4CD9 /* ViewController.h */,
 				AB80673515164E5A00BC4CD9 /* ViewController.m */,
-				ABED195E151B56630012580A /* callOutView.h */,
-				ABED195F151B56630012580A /* callOutView.m */,
-				ABED1960151B56630012580A /* callOutView.xib */,
+				AB6CA899151C1BE600B14B5C /* SlidingMessageViewController.h */,
+				AB6CA89A151C1BE600B14B5C /* SlidingMessageViewController.m */,
 				AB80673715164E5A00BC4CD9 /* ViewController_iPhone.xib */,
+				AB49D718151EEB4100EB2E0D /* menuViewController.h */,
+				AB49D719151EEB4100EB2E0D /* menuViewController.m */,
 			);
 			path = stillOpen;
 			sourceTree = "<group>";
@@ -282,7 +288,6 @@
 				ABAA1EF315175D1400C315E6 /* orangePin.png in Resources */,
 				AB6EAE3215181E29005D8415 /* Default@2x.png in Resources */,
 				AB6EAE3315181E2E005D8415 /* Default.png in Resources */,
-				ABED1962151B56630012580A /* callOutView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,7 +326,8 @@
 				AB80673315164E5A00BC4CD9 /* AppDelegate.m in Sources */,
 				AB80673615164E5A00BC4CD9 /* ViewController.m in Sources */,
 				AB80676E151650AD00BC4CD9 /* storeAnnotation.m in Sources */,
-				ABED1961151B56630012580A /* callOutView.m in Sources */,
+				AB6CA89B151C1BE600B14B5C /* SlidingMessageViewController.m in Sources */,
+				AB49D71A151EEB4100EB2E0D /* menuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
