@@ -10,58 +10,69 @@
 
 @implementation menuViewController
 
-@synthesize addStoreMenu, secondMenu, thirdMenu, firstDividerBlock, secondDividerBlock, menuTag;
+@synthesize addStoreMenu, toggleCurrentOpenMenu, helpMenu, firstDividerBlock, secondDividerBlock, menuTag;
 
-- (id)init
+- (id)initWithParentViewController:(ViewController *) inputParentViewController
 {
     if (self = [super init])
     {
-        UISwipeGestureRecognizer * menuSwipeRecognizer;
+        isClosed = YES;
+        parentViewController = inputParentViewController;
         
-        self.view = [[UIView alloc] initWithFrame:CGRectMake(-320, 480 - menuHeight- 20, 320 + menuTagWidth, menuHeight)];
+        self.view = [[UIView alloc] initWithFrame:CGRectMake(-menuWidth, 480 - menuHeight- 20, menuWidth + menuTagWidth, menuHeight)];
         self.view.userInteractionEnabled = YES;
-        
 
-        menuSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(menuSwipe:)];
-        menuSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
-        [self.view addGestureRecognizer:menuSwipeRecognizer];
-        
-        menuSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(menuSwipe:)];
-        menuSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
-        [self.view addGestureRecognizer:menuSwipeRecognizer];
-        
-        
-        // 방향마다 하나의 레코그나이저를 추가해야 한다.
-        
+        UIPanGestureRecognizer * menuPanRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(menuSwipe:)];
+        [self.view addGestureRecognizer:menuPanRecognizer];
         
         [self.view setBackgroundColor:[UIColor blackColor]];
         [self.view setAlpha:0.8];
         
         
-        addStoreMenu = [[UILabel alloc] initWithFrame:CGRectMake(10,10,93,40)];
-        addStoreMenu.userInteractionEnabled = YES;
-        UITapGestureRecognizer * addStoreRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self 
-                                                                                              action:@selector(addStore)];
+        // 316px / 3 = 105, ( 105 - 40 ) = 32
+        
+        
+        
+        //첫번째 메뉴바 추가 -------------------------------------------------
+        
+        UIImage * addStoreImage = [UIImage imageNamed:@"plusIcon.png"];
+        addStoreMenu = [[UIImageView alloc] initWithFrame:CGRectMake(32, 10, 40, 40)];
+        [addStoreMenu setImage:addStoreImage];
+
+        
+        addStoreMenu.userInteractionEnabled = YES;        
+        UITapGestureRecognizer * addStoreRecognizer = [[UITapGestureRecognizer alloc] 
+                                                       initWithTarget:self 
+                                                       action:@selector(addStore)];
+        
         [addStoreMenu addGestureRecognizer:addStoreRecognizer];
-        addStoreMenu.backgroundColor = [UIColor clearColor];
-        addStoreMenu.text = @"가게 추가하기";
-        addStoreMenu.font = [UIFont boldSystemFontOfSize:15];
-        addStoreMenu.textAlignment = UITextAlignmentCenter;
-        addStoreMenu.textColor = [UIColor whiteColor];
-        
-        
-        
         [self.view addSubview:addStoreMenu];
         
-        secondMenu = [[UILabel alloc] initWithFrame:CGRectMake(113, 10, 93, 40)];
-        secondMenu.backgroundColor = [UIColor clearColor];
+        // ----------------------------------------------------------------
         
-        [self.view addSubview:secondMenu];
         
-        thirdMenu = [[UILabel alloc] initWithFrame:CGRectMake(216, 10, 93, 40)];
-        thirdMenu.backgroundColor = [UIColor clearColor];
+
+        //두번째 메뉴바 추가 -------------------------------------------------
+
+        UIImage * toggleCurrentOpenImage = [UIImage imageNamed:@"clockIcon.png"];
+        toggleCurrentOpenMenu = [[UIImageView alloc] initWithFrame:CGRectMake(139, 10, 40, 40)];
+        [toggleCurrentOpenMenu setImage:toggleCurrentOpenImage];
+        [self.view addSubview:toggleCurrentOpenMenu];
         
-        [self.view addSubview:thirdMenu];
+        // ----------------------------------------------------------------
+        
+        
+        
+        //세번째 메뉴바 추가 -------------------------------------------------        
+      
+        UIImage * helpImage = [UIImage imageNamed:@"questionIcon.png"];
+        helpMenu = [[UIImageView alloc] initWithFrame:CGRectMake(245, 10, 40, 40)];
+        [helpMenu setImage:helpImage];
+        [self.view addSubview:helpMenu];
+        
+        // ----------------------------------------------------------------
+    
+        
         
         firstDividerBlock = [[UILabel alloc] initWithFrame:CGRectMake(107, 15, 2, 30)];
         firstDividerBlock.backgroundColor = [UIColor whiteColor];
@@ -75,8 +86,10 @@
         
         [self.view addSubview:secondDividerBlock];
         
-        menuTag = [[UILabel alloc] initWithFrame:CGRectMake(320, 0, menuTagWidth, menuHeight)];
-      //  menuTag.backgroundColor = [UIColor colorWithRed:169 green:137 blue:181 alpha:0.5];
+        
+        
+        menuTag = [[UILabel alloc] initWithFrame:CGRectMake(menuWidth, 0, menuTagWidth, menuHeight)];
+        //  menuTag.backgroundColor = [UIColor colorWithRed:169 green:137 blue:181 alpha:0.5];
         menuTag.backgroundColor = RGBA(169, 137, 181, 1);
         
         
@@ -86,7 +99,6 @@
         
         [self.view addSubview:menuTag];
         
-        
     }
     
     return self;
@@ -95,16 +107,132 @@
 
 -(void) addStore
 {
-    NSLog(@"Hello WOrld!");
+    [parentViewController.helpBar setHidden:NO];
+    [parentViewController.view addSubview:parentViewController.helpBar];
+    
+    
+    [parentViewController setPlusMenuToggled:YES];
+    [parentViewController checkAndAddStore:parentViewController.mapView];
+    [self hideMenu];
 }
 
-- (void) menuSwipe:(UISwipeGestureRecognizer * ) inputRecoginzer
+
+- (void) menuSwipe:(UIPanGestureRecognizer * ) recognizer
 {
-    if ([inputRecoginzer direction] == UISwipeGestureRecognizerDirectionLeft)
-        [self hideMenu];
-    else if ([inputRecoginzer direction] == UISwipeGestureRecognizerDirectionRight)
-        [self showMenu];
+    // 3. ...or maybe the interaction already _ENDED_?
+	if (UIGestureRecognizerStateEnded == [recognizer state])
+	{
+        
+        NSLog(@"WOW!");
+		// Case a): Quick finger flick fast enough to cause instant change:
+		if (fabs([recognizer velocityInView:self.view].x) > VELOCITY_REQUIRED_FOR_QUICK_FLICK)
+		{
+			if ([recognizer velocityInView:self.view].x > 0.0f)
+			{	
+                NSLog(@"%f", [recognizer velocityInView:self.view].x);
+				[self showMenu];
+			}
+			else
+			{
+				[self hideMenu];
+			}
+		}
+        
+        
+		// Case b) Slow pan/drag ended:
+		else
+		{
+			float dynamicTriggerLevel = isClosed ? REVEAL_VIEW_TRIGGER_LEVEL_LEFT : REVEAL_VIEW_TRIGGER_LEVEL_RIGHT;
+			
+			if ([self getConvertedOriginX] >= dynamicTriggerLevel && [self getConvertedOriginX] != REVEAL_EDGE)
+			{
+				[self showMenu];
+			}
+			else if ([self getConvertedOriginX] < dynamicTriggerLevel && [self getConvertedOriginX] != 0.0f)
+			{
+				[self hideMenu];
+			}
+		}
+		
+		// Now adjust the current state enum.
+		if ([self getConvertedOriginX] == 0.0f)
+		{
+            isClosed = YES;
+		}
+		else
+		{
+            isClosed = NO;
+		}
+		
+		return;
+        
+	}
+
     
+    
+    if (isClosed)
+	{
+		if ([recognizer translationInView:self.view].x < 0.0f)
+		{
+//			self.frontView.frame = CGRectMake(0.0f, 0.0f, self.frontView.frame.size.width, self.frontView.frame.size.height);
+		}
+		else
+		{
+			float offset = [self _calculateOffsetForTranslationInView:[recognizer translationInView:self.view].x];
+            CGRect frame = self.view.frame;
+            frame.origin.x = offset - menuWidth;
+            self.view.frame = frame;
+		}
+	}
+	else
+	{
+		if ([recognizer translationInView:self.view].x > 0.0f)
+		{
+			float offset = [self _calculateOffsetForTranslationInView:([recognizer translationInView:self.view].x+REVEAL_EDGE)];
+            CGRect frame = self.view.frame;
+            frame.origin.x = offset - menuWidth;
+            self.view.frame = frame;
+		}
+		else if ([recognizer translationInView:self.view].x > -REVEAL_EDGE)
+		{
+            CGRect frame = self.view.frame;
+            frame.origin.x = [recognizer translationInView:self.view].x+REVEAL_EDGE - menuWidth;
+            self.view.frame = frame;
+		}
+		else
+		{
+//			self.frontView.frame = CGRectMake(0.0f, 0.0f, self.frontView.frame.size.width, self.frontView.frame.size.height);
+		}
+	}
+    
+}
+
+- (float) getConvertedOriginX
+{
+    return self.view.frame.origin.x + menuWidth;
+}
+
+- (CGFloat)_calculateOffsetForTranslationInView:(CGFloat)x
+{
+	CGFloat result;
+	
+	if (x <= REVEAL_EDGE)
+	{
+		// Translate linearly.
+		result = x;
+	}
+	else if (x <= REVEAL_EDGE+(M_PI*REVEAL_EDGE_OVERDRAW/2.0f))
+	{
+		// and eventually slow translation slowly.
+		result = REVEAL_EDGE_OVERDRAW*sin((x-REVEAL_EDGE)/REVEAL_EDGE_OVERDRAW)+REVEAL_EDGE;
+	}
+	else
+	{
+		// ...until we hit the limit.
+		result = REVEAL_EDGE+REVEAL_EDGE_OVERDRAW;
+	}
+	
+	return result;
 }
 
 
@@ -127,7 +255,7 @@
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:popOutDuration];
     
-    frame.origin.x = -320;
+    frame.origin.x = -menuWidth;
     self.view.frame = frame;
     
     [UIView commitAnimations];
@@ -150,13 +278,13 @@
  }
  */
 
- // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
- - (void)viewDidLoad
- {
-     [super viewDidLoad];
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+}
 
- }
- 
 
 - (void)viewDidUnload
 {

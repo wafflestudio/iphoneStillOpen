@@ -13,7 +13,18 @@
 
 @synthesize coordinate,title,subtitle;
 @synthesize Opentime, Closetime, description, imageURL;
+@synthesize isUserAddedAnnotation;
 
 
+-(storeAnnotation * ) init
+{
+    self = [super init];
+    if (self)
+    {
+        isUserAddedAnnotation = NO;
+    }
+    return self;
+    
+}
 
 @end

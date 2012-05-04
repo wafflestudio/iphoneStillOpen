@@ -1,4 +1,4 @@
-#define boxHeight 110
+#define boxHeight 106
 #define animationDuration 0.45
 
 #import <UIKit/UIKit.h>
@@ -17,6 +17,7 @@
 
 
 -(id)initWithAnnotation:(storeAnnotation *)inputAnnotation;
+- (void)hideMsgFast;
 - (void)hideMsg;
 - (void)showMsg;
 - (void)showMsgWithDelay:(int)delay;

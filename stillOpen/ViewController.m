@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "storeAnnotation.h"
+
 
 @implementation ViewController
 @synthesize mapView;
@@ -17,9 +17,8 @@
 @synthesize helpLabel;
 @synthesize callOutView;
 @synthesize currentAnnotation;
-@synthesize menuView;
 @synthesize address;
-
+@synthesize plusMenuToggled;
 
 
 - (void)didReceiveMemoryWarning
@@ -31,33 +30,43 @@
 
 - (void)viewDidLoad
 {
+    
     [super viewDidLoad];
     [longPress addTarget:self action:@selector(receivedLongPress:)];
-    
     
     [self initializeMap];
     [self setAllAnnotations];
     
-    
-    menuView = [[menuViewController alloc] init];
+    menuView = [[menuViewController alloc] initWithParentViewController:self];
     [self.view addSubview:menuView.view];
     
+}
+
+- (void)mapView:(MKMapView *)mV regionDidChangeAnimated:(BOOL)animated
+{
+    // if addmenu toggled.. 조건추가 
+    [self checkAndAddStore:mV];
+}
+
+- (void) checkAndAddStore: (MKMapView * ) mV
+{
+    
+    if (plusMenuToggled == YES)
+    {
+        if (mV.region.span.latitudeDelta < 0.004) // 지도가 최대로 확대되어 있다면..
+        { 
+            helpLabel.text = @"추가할 지점을 꾹 눌러주세요";
+        }
+        else
+        {
+            helpLabel.text = @"지도를 최대로 확대해 주세요";
+            helpLabel.numberOfLines = 0;
+        }
+    }
     
 }
 
--(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    UITouch * touch = [[event allTouches] anyObject];
-    if ([touch view] == menuView.view)
-    {
-        [menuView showMenu];
-        [callOutView hideMsg];
-        [mapView deselectAnnotation:currentAnnotation animated:YES];
-    }
-}
-
-
-
+	
 - (void)mapView:(MKMapView *)funcMapView didSelectAnnotationView:(MKAnnotationView *)view
 { 
     [menuView hideMenu];    //화면이 좁기때문에 메뉴바가 열려있으면 이를 미리 닫는다
@@ -65,18 +74,14 @@
     currentAnnotation = view.annotation;    //전역변수로 저장해놓아 나중에 처리할 수 있도록..
     
     
-    
-    
     ///----------------------------------------------------------------///
     /// 핀이 위에 콜아웃 메시지보다 낮게 있으면 맵을 이동함 ///
     
     CGPoint newMapCenterPoint = [funcMapView convertCoordinate:thisAnn.coordinate toPointToView:funcMapView];
     newMapCenterPoint.x = 160;  // 중심은 걍 똑같이
-    newMapCenterPoint.y += 15; // 조금 더 높게 설정.. 너무 중간으로 맞추면 화면이 좁으니
+    newMapCenterPoint.y += 20; // 조금 더 높게 설정.. 너무 중간으로 맞추면 화면이 좁으니
     
     CLLocationCoordinate2D newMapCenterCoordinates = [funcMapView convertPoint:newMapCenterPoint toCoordinateFromView:funcMapView];
-    
-    
     
     if ([funcMapView convertCoordinate:thisAnn.coordinate toPointToView:funcMapView].y < 215) //만약에 핀이 화면 중심 위로 가있다면.. 
     {
@@ -89,6 +94,7 @@
     
     ///----------------------------------------------------------------///
 
+    
     
     if([view.annotation isKindOfClass:[MKUserLocation class]])
         view.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeContactAdd];
@@ -103,11 +109,38 @@
                                                            userInfo:thisAnn
                                                             repeats:YES];
     }  //   걍 폄범한 핀이라면 여기서 업데이트하는 타이머를 켠 후
+
+
+    if ([view.annotation isKindOfClass:[MKUserLocation class]])
+    {
+        callOutView = [[SlidingMessageViewController alloc] initWithAnnotation:thisAnn];
+        
+        [self.view addSubview:callOutView.view];
+        [callOutView showMsg];        
+    }
     
-    callOutView = [[SlidingMessageViewController alloc] initWithAnnotation:thisAnn];
+    else if ([thisAnn isUserAddedAnnotation])
+    {
+        int delay = 3;
+        helpLabel.text = @"해당 지점을 추가하시려면 파란 버튼을 누르세요";
+        
+        [helpBar setHidden:NO];
+        [self.view addSubview:helpBar];
+        [self performSelector:@selector(makeInvisible:) withObject:helpBar afterDelay:delay];
+    }
     
-    [self.view addSubview:callOutView.view];
-    [callOutView showMsg];
+    else
+    {
+        callOutView = [[SlidingMessageViewController alloc] initWithAnnotation:thisAnn];
+        
+        [self.view addSubview:callOutView.view];
+        [callOutView showMsg];        
+
+    }
+    
+//    [self makeJsonStringWithAnnotation:thisAnn];
+
+    
     
 }
 
@@ -137,40 +170,142 @@
         if ([view.annotation isKindOfClass:[MKUserLocation class]])
         {
             view.annotation.title = @"현재 위치";
-            
-   
-       //     view.annotation.subtitle = @"주소 나오게 구현";
-            
-  /*          
-            CLLocation * curLoc = [[CLLocation alloc] initWithLatitude:view.annotation.coordinate.latitude 
-                                                             longitude:view.annotation.coordinate.longitude];
-            CLGeocoder *rGeo = [[CLGeocoder alloc] init];
-            [rGeo reverseGeocodeLocation:curLoc completionHandler:
-             ^(NSArray *placemarks, NSError *err) {
-                 if( nil == placemarks ) return;
-                 CLPlacemark *place = [placemarks objectAtIndex:0];
-                 NSMutableDictionary *addrDic = [[NSMutableDictionary alloc] initWithDictionary:place.addressDictionary];
-                 [addrDic removeObjectForKey:@"Country"];
-                 [addrDic removeObjectForKey:@"CountryCode"];
-                 [addrDic removeObjectForKey:@"ZIP"];
-                 
-                 address = ABCreateStringWithAddressDictionary(addrDic, NO);
-                 
-                 NSLog(@"%@",address);
-                 NSLog(@"%@", addrDic);
-             }];
-            
-*/             
-            
-            
             view.rightCalloutAccessoryView=[UIButton buttonWithType:UIButtonTypeContactAdd];
         }
+        
+        else if ([view.annotation isKindOfClass:[storeAnnotation class]] && [((storeAnnotation * )view.annotation) isUserAddedAnnotation])
+        {
+            view.rightCalloutAccessoryView=[UIButton buttonWithType:UIButtonTypeContactAdd];
+            [self.mapView selectAnnotation:userAnnotation animated:NO];
+
+        }
+        
     }
     
     // 현재 위치에는 파란색 '추가' 버튼을 붙인다
 }
 
 
+
+
+-(void) receivedLongPress: (UILongPressGestureRecognizer *) inputPress
+{
+
+    [callOutView hideMsgFast];
+    [mapView deselectAnnotation:currentAnnotation animated:YES];
+    
+    if (!plusMenuToggled)
+        return;
+
+    if (mapView.region.span.latitudeDelta < 0.004) // 지도가 최대로 확대되어 있다면 가능하게
+    {
+        int delay = 3;
+   //     helpLabel.text = @"해당 지점을 추가하시려면 파란 버튼을 누르세요";
+        
+        [helpBar setHidden:NO];
+        [self.view addSubview:helpBar];
+        [self performSelector:@selector(makeInvisible:) withObject:helpBar afterDelay:delay];
+        
+        CGPoint pointCoords = [inputPress locationInView:mapView];
+        CLLocationCoordinate2D mapCoords = [mapView convertPoint:pointCoords toCoordinateFromView:mapView];
+        
+        if(userAnnotation != nil)
+            [mapView removeAnnotation:userAnnotation];
+        
+        userAnnotation = [[storeAnnotation alloc] init];
+        [userAnnotation setIsUserAddedAnnotation:YES];
+        
+        userAnnotation.coordinate = mapCoords;
+        userAnnotation.title = @"새로운 가게";
+        userAnnotation.subtitle = @"뭐라도 좀 써줘요";
+        
+        [mapView addAnnotation:userAnnotation];
+
+    }
+}
+
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+    MKUserLocation * annotation = view.annotation;
+
+     
+    requestHTTP * req = [[requestHTTP alloc] initWithURL:[NSURL URLWithString:@"http://mintengine.com:3000/stores.json"]];
+    [req setStoreValue:@"newStore" forKey:@"Name"];
+    [req setStoreValue:@"newDesc" forKey:@"Description"];
+    [req setStoreValue:@"0000" forKey:@"Opentime"];
+    [req setStoreValue:@"0000" forKey:@"Closetime"];
+    [req setStoreValue:[NSString stringWithFormat:@"%f", annotation.coordinate.latitude] forKey:@"Latitude"];
+    [req setStoreValue:[NSString stringWithFormat:@"%f", annotation.coordinate.longitude]  forKey:@"Longitude"];
+    
+    [req synchronousRequestWithPost];
+     
+
+    
+    NSLog(@"%f", annotation.coordinate.latitude);
+    NSLog(@"%f", annotation.coordinate.longitude);
+    
+}
+
+
+- (void)makeJsonStringWithAnnotation:(storeAnnotation * ) inputAnn
+{
+    NSError *error;
+    NSMutableDictionary * newJsonDic = [[NSMutableDictionary alloc] init];
+    
+    NSLog(@"%@", inputAnn.title);
+
+    [newJsonDic setObject:inputAnn.title forKey:@"Name"];
+   // [newJsonDic setObject:inputAnn.subtitle forKey:@"Description"];
+    
+    [newJsonDic setObject:[NSString stringWithFormat:@"%d", inputAnn.Opentime] forKey:@"Opentime"];
+    [newJsonDic setObject:[NSString stringWithFormat:@"%d", inputAnn.Closetime] forKey:@"Closetime"];
+    [newJsonDic setObject:[NSString stringWithFormat:@"%f", inputAnn.coordinate.latitude] forKey:@"Latitude"];
+    [newJsonDic setObject:[NSString stringWithFormat:@"%f", inputAnn.coordinate.longitude] forKey:@"Longitude"];
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:newJsonDic options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSLog(@"jsonString => %@", jsonString);
+    
+    
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch * touch = [[event allTouches] anyObject];
+    if ([touch view] == menuView.view)
+    {
+//        [menuView showMenu];
+//        [callOutView hideMsg];
+//        [mapView deselectAnnotation:currentAnnotation animated:YES];
+    }
+    // 만약 빈 공간이 눌린다면..
+    
+    
+    // 메뉴판 열고닫고.. 열릴떄 위의 콜아웃 팝업창을 닫는다 (화면이 좁기때문에)
+}
 
 -(void) setAllAnnotations
 {
@@ -198,8 +333,8 @@
             s.Closetime = [[item valueForKey:@"Closetime"] intValue];
             s.description = [item valueForKey:@"Description"];
             
-      //      s.subtitle = [self makeSubtitle:s]; 
-    //  처음에 subtitle값을 주지 않음으로써 콜아웃이 커지는 애니메이션 효과..
+            //      s.subtitle = [self makeSubtitle:s]; 
+            //  처음에 subtitle값을 주지 않음으로써 콜아웃이 커지는 애니메이션 효과..
             
             [mapView addAnnotation:s];        
         }
@@ -215,79 +350,8 @@
                                               otherButtonTitles:nil]; 
         [alert show];
     }
-   
-}
-
-
--(void) receivedLongPress: (UILongPressGestureRecognizer *) inputPress
-{
-    if (mapView.region.span.latitudeDelta < 0.004) // 지도가 최대로 확대되어 있다면 가능하게
-    {
-        int delay = 3;
-        helpLabel.text = @"해당 지점을 추가하시려면 이 곳을 누르세요";
-        
-        [helpBar setHidden:NO];
-        [self.view addSubview:helpBar];
-        [self performSelector:@selector(makeInvisible:) withObject:helpBar afterDelay:delay];
-        
-        CGPoint pointCoords = [inputPress locationInView:mapView];
-        CLLocationCoordinate2D mapCoords = [mapView convertPoint:pointCoords toCoordinateFromView:mapView];
-        
-        
-        
-        
-        if(userAnnotation != nil)
-            [mapView removeAnnotation:userAnnotation];
-        
-        userAnnotation = [[storeAnnotation alloc] init];
-        
-        userAnnotation.coordinate = mapCoords;
-        userAnnotation.title = @"새로운 가게";
-        userAnnotation.subtitle = @"뭐라도 좀 써줘요";
-        
-        [mapView addAnnotation:userAnnotation];
-    }
-    else
-    {
-        int delay = 3;
-        helpLabel.text = @"지도를 최대로 확대한 경우에만 상점을 추가할 수 있습니다.";
-        
-        [helpBar setHidden:NO];
-        [self.view addSubview:helpBar];
-        [self performSelector:@selector(makeInvisible:) withObject:helpBar afterDelay:delay];
-        
-    }
-}
-
-
-- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
-{
-    MKUserLocation * annotation = view.annotation;
-    
-    
-    NSLog(@"%f", annotation.coordinate.latitude);
-    NSLog(@"%f", annotation.coordinate.longitude);
-    
-    
-    
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 - (MKAnnotationView *) mapView:(MKMapView *) mapView viewForAnnotation:(id ) annotation {
     
@@ -434,7 +498,7 @@
 }
 -(void) initializeMap
 {
-    gpsUpdatedOnce = NO;
+    plusMenuToggled = NO;
     MKCoordinateRegion region;
     region.center.latitude = 37.4788;
     region.center.longitude = 126.9523;

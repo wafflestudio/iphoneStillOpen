@@ -22,6 +22,7 @@
 @property (nonatomic, copy) NSString * description;
 @property (nonatomic, copy) NSString * imageURL;
 
+@property (nonatomic) BOOL isUserAddedAnnotation;
 
 
 @end

@@ -18,7 +18,18 @@
     
     [UIView commitAnimations];
 }
-
+- (void)hideMsgFast
+{
+    CGRect frame = self.view.frame;
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.1];
+    
+    frame.origin.y = -boxHeight;
+    self.view.frame = frame;
+    
+    [UIView commitAnimations];
+    
+}
 
 
 -(id)initWithAnnotation:(storeAnnotation *)inputAnnotation
@@ -34,8 +45,10 @@
         [self.view setAlpha:.70];
         
         // 가게 이름
-        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, 285, 40)];
-        titleLabel.font = [UIFont boldSystemFontOfSize:27];
+        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 4, 285, 40)];
+
+//        titleLabel.font = [UIFont boldSystemFontOfSize:27];
+        titleLabel.font = [UIFont fontWithName:@"Futura" size:28];
         titleLabel.text = annotation.title;
         titleLabel.textAlignment = UITextAlignmentRight;
         titleLabel.textColor = [UIColor whiteColor];
@@ -45,7 +58,8 @@
         
         // 가게 설명
         msgLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, 285, 90)];
-        msgLabel.font = [UIFont systemFontOfSize:14];
+//        msgLabel.font = [UIFont systemFontOfSize:14];
+        msgLabel.font = [UIFont fontWithName:@"Futura" size:13];
         msgLabel.text = annotation.description;
         msgLabel.textAlignment = UITextAlignmentRight;
         msgLabel.textColor = [UIColor whiteColor];
@@ -55,9 +69,10 @@
         
         // 현재 위치로부터 거리
         
-        distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, 285, 150)];
+        distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 3, 285, 150)];
         distanceLabel.numberOfLines = 0;
-        distanceLabel.font = [UIFont boldSystemFontOfSize:15];
+        distanceLabel.font = [UIFont systemFontOfSize:14];
+//        distanceLabel.font = [UIFont boldSystemFontOfSize:15];
         distanceLabel.text = @"";
         distanceLabel.textAlignment = UITextAlignmentRight;
         distanceLabel.textColor = [UIColor whiteColor];
