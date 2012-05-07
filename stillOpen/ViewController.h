@@ -8,14 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-#import <AddressBookUI/AddressBookUI.h>
 #import "storeAnnotation.h"
-#import "SlidingMessageViewController.h"
 #import "menuViewController.h"
 #import "requestHTTP.h"
+#import "annotationDetailViewer.h"
+#import "messageBoxViewController.h"
+
 
 @class menuViewController;
-
+@class messageBoxViewController;
 
 
 
@@ -23,21 +24,17 @@
 { 
     NSTimer * annotationUpdateTimer;
     menuViewController * menuView;
+    annotationDetailViewer * callOutView;
+    annotationDetailViewer * hiddenCallOutView;
+    UILongPressGestureRecognizer * longPress;
+    storeAnnotation * userAnnotation;
+    storeAnnotation * currentAnnotation;
+    messageBoxViewController * messageBox;
 }
 
+
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
-@property (weak, nonatomic) IBOutlet UIView *helpBar;
-@property (strong, nonatomic) IBOutlet UILongPressGestureRecognizer *longPress;
-@property (weak, nonatomic) IBOutlet UILabel *helpLabel;
-@property (nonatomic, copy) storeAnnotation * userAnnotation;
-@property (nonatomic, copy) storeAnnotation * currentAnnotation;
-
-@property (nonatomic, retain) SlidingMessageViewController * callOutView;
-@property (nonatomic, copy) NSString * address;
-
 @property (nonatomic) BOOL plusMenuToggled;
-
-
 
 
 -(void) setAllAnnotations;
@@ -52,8 +49,9 @@
 -(void) receivedLongPress:(id) inputObject;
 -(void) annotationUpdater:(NSTimer * ) timer;
 -(NSString * ) getDistanceFromCurrentLocation:(storeAnnotation *) annotation;
-- (void)makeJsonStringWithAnnotation:(storeAnnotation * ) inputAnn;
-- (void) checkAndAddStore: (MKMapView * ) mV;
+-(void)makeJsonStringWithAnnotation:(storeAnnotation * ) inputAnn;
+-(void) checkAndAddStore: (MKMapView * ) mV;
+-(void) hideCalloutView;
 
 
 

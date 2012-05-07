@@ -7,15 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB00759A1557DA6100C9B5C8 /* wifiblue.png in Resources */ = {isa = PBXBuildFile; fileRef = AB0075991557DA6100C9B5C8 /* wifiblue.png */; };
+		AB0075A31557E1FB00C9B5C8 /* wifiWhiteIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = AB0075A21557E1FB00C9B5C8 /* wifiWhiteIcon.png */; };
+		AB0075A71557E6A300C9B5C8 /* toiletIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = AB0075A61557E6A300C9B5C8 /* toiletIcon.png */; };
 		AB149FE91552C58600E6D405 /* plusIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = AB149FE61552C58600E6D405 /* plusIcon.png */; };
 		AB149FEA1552C58600E6D405 /* questionIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = AB149FE71552C58600E6D405 /* questionIcon.png */; };
 		AB149FEC1552C6C900E6D405 /* clockIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = AB149FEB1552C6C900E6D405 /* clockIcon.png */; };
-		AB149FEF1552CDFD00E6D405 /* helpMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB149FEE1552CDFD00E6D405 /* helpMenuViewController.m */; };
+		AB3C917C15564C380083FE0B /* messageBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB3C917B15564C380083FE0B /* messageBoxViewController.m */; };
+		AB3F35B51555111800E089B7 /* annotationDetailViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = AB3F35B41555111800E089B7 /* annotationDetailViewer.m */; };
 		AB49D71A151EEB4100EB2E0D /* menuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB49D719151EEB4100EB2E0D /* menuViewController.m */; };
 		AB6CA89B151C1BE600B14B5C /* SlidingMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6CA89A151C1BE600B14B5C /* SlidingMessageViewController.m */; };
 		AB6EAE3215181E29005D8415 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB84DB8515172A520088DF73 /* Default@2x.png */; };
 		AB6EAE3315181E2E005D8415 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = AB84DB8715172A550088DF73 /* Default.png */; };
-		AB6ECD86151F4C750047B8C0 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6ECD85151F4C750047B8C0 /* AddressBookUI.framework */; };
 		AB80672315164E5A00BC4CD9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB80672215164E5A00BC4CD9 /* UIKit.framework */; };
 		AB80672515164E5A00BC4CD9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB80672415164E5A00BC4CD9 /* Foundation.framework */; };
 		AB80672715164E5A00BC4CD9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB80672615164E5A00BC4CD9 /* CoreGraphics.framework */; };
@@ -35,6 +38,7 @@
 		AB80676E151650AD00BC4CD9 /* storeAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = AB80676D151650AD00BC4CD9 /* storeAnnotation.m */; };
 		AB8C89EB1551692C00359B5E /* requestHTTP.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8C89EA1551692C00359B5E /* requestHTTP.m */; };
 		ABAA1EF315175D1400C315E6 /* orangePin.png in Resources */ = {isa = PBXBuildFile; fileRef = ABAA1EF215175D1400C315E6 /* orangePin.png */; };
+		ABE3061F1557CE390037453C /* cafe.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = ABE3061E1557CE390037453C /* cafe.jpeg */; };
 		ABED196C151B61110012580A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABED196B151B61110012580A /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
@@ -49,16 +53,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AB0075991557DA6100C9B5C8 /* wifiblue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wifiblue.png; sourceTree = "<group>"; };
+		AB0075A21557E1FB00C9B5C8 /* wifiWhiteIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wifiWhiteIcon.png; sourceTree = "<group>"; };
+		AB0075A61557E6A300C9B5C8 /* toiletIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toiletIcon.png; sourceTree = "<group>"; };
 		AB149FE61552C58600E6D405 /* plusIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plusIcon.png; sourceTree = "<group>"; };
 		AB149FE71552C58600E6D405 /* questionIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = questionIcon.png; sourceTree = "<group>"; };
 		AB149FEB1552C6C900E6D405 /* clockIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clockIcon.png; sourceTree = "<group>"; };
-		AB149FED1552CDFD00E6D405 /* helpMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = helpMenuViewController.h; sourceTree = "<group>"; };
-		AB149FEE1552CDFD00E6D405 /* helpMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = helpMenuViewController.m; sourceTree = "<group>"; };
+		AB3C917A15564C380083FE0B /* messageBoxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = messageBoxViewController.h; sourceTree = "<group>"; };
+		AB3C917B15564C380083FE0B /* messageBoxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = messageBoxViewController.m; sourceTree = "<group>"; };
+		AB3F35B31555111800E089B7 /* annotationDetailViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = annotationDetailViewer.h; sourceTree = "<group>"; };
+		AB3F35B41555111800E089B7 /* annotationDetailViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = annotationDetailViewer.m; sourceTree = "<group>"; };
 		AB49D718151EEB4100EB2E0D /* menuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = menuViewController.h; sourceTree = "<group>"; };
 		AB49D719151EEB4100EB2E0D /* menuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = menuViewController.m; sourceTree = "<group>"; };
 		AB6CA899151C1BE600B14B5C /* SlidingMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlidingMessageViewController.h; sourceTree = "<group>"; };
 		AB6CA89A151C1BE600B14B5C /* SlidingMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlidingMessageViewController.m; sourceTree = "<group>"; };
-		AB6ECD85151F4C750047B8C0 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		AB80671E15164E5A00BC4CD9 /* stillOpen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = stillOpen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB80672215164E5A00BC4CD9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AB80672415164E5A00BC4CD9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -88,6 +96,7 @@
 		AB8C89E91551692C00359B5E /* requestHTTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = requestHTTP.h; sourceTree = "<group>"; };
 		AB8C89EA1551692C00359B5E /* requestHTTP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = requestHTTP.m; sourceTree = "<group>"; };
 		ABAA1EF215175D1400C315E6 /* orangePin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orangePin.png; sourceTree = "<group>"; };
+		ABE3061E1557CE390037453C /* cafe.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cafe.jpeg; sourceTree = "<group>"; };
 		ABED196B151B61110012580A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -96,7 +105,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB6ECD86151F4C750047B8C0 /* AddressBookUI.framework in Frameworks */,
 				ABED196C151B61110012580A /* CoreLocation.framework in Frameworks */,
 				AB80675B15164E7700BC4CD9 /* MapKit.framework in Frameworks */,
 				AB80672315164E5A00BC4CD9 /* UIKit.framework in Frameworks */,
@@ -118,10 +126,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AB33B0FB15564BB400F03589 /* messageController */ = {
+			isa = PBXGroup;
+			children = (
+				AB6CA899151C1BE600B14B5C /* SlidingMessageViewController.h */,
+				AB6CA89A151C1BE600B14B5C /* SlidingMessageViewController.m */,
+				AB49D718151EEB4100EB2E0D /* menuViewController.h */,
+				AB49D719151EEB4100EB2E0D /* menuViewController.m */,
+				AB3F35B31555111800E089B7 /* annotationDetailViewer.h */,
+				AB3F35B41555111800E089B7 /* annotationDetailViewer.m */,
+				AB3C917A15564C380083FE0B /* messageBoxViewController.h */,
+				AB3C917B15564C380083FE0B /* messageBoxViewController.m */,
+			);
+			name = messageController;
+			sourceTree = "<group>";
+		};
 		AB80671315164E5900BC4CD9 = {
 			isa = PBXGroup;
 			children = (
-				ABED1959151B55DA0012580A /* etCetera */,
 				AB80672815164E5A00BC4CD9 /* stillOpen */,
 				AB80674915164E5A00BC4CD9 /* stillOpenTests */,
 				AB80672115164E5A00BC4CD9 /* Frameworks */,
@@ -141,7 +163,6 @@
 		AB80672115164E5A00BC4CD9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AB6ECD85151F4C750047B8C0 /* AddressBookUI.framework */,
 				ABED196B151B61110012580A /* CoreLocation.framework */,
 				AB80675A15164E7700BC4CD9 /* MapKit.framework */,
 				AB80672215164E5A00BC4CD9 /* UIKit.framework */,
@@ -155,15 +176,11 @@
 		AB80672815164E5A00BC4CD9 /* stillOpen */ = {
 			isa = PBXGroup;
 			children = (
+				ABED1959151B55DA0012580A /* etCetera */,
+				AB33B0FB15564BB400F03589 /* messageController */,
 				AB80673415164E5A00BC4CD9 /* ViewController.h */,
 				AB80673515164E5A00BC4CD9 /* ViewController.m */,
-				AB6CA899151C1BE600B14B5C /* SlidingMessageViewController.h */,
-				AB6CA89A151C1BE600B14B5C /* SlidingMessageViewController.m */,
 				AB80673715164E5A00BC4CD9 /* ViewController_iPhone.xib */,
-				AB49D718151EEB4100EB2E0D /* menuViewController.h */,
-				AB49D719151EEB4100EB2E0D /* menuViewController.m */,
-				AB149FED1552CDFD00E6D405 /* helpMenuViewController.h */,
-				AB149FEE1552CDFD00E6D405 /* helpMenuViewController.m */,
 			);
 			path = stillOpen;
 			sourceTree = "<group>";
@@ -217,16 +234,21 @@
 		ABED1959151B55DA0012580A /* etCetera */ = {
 			isa = PBXGroup;
 			children = (
+				AB84DB84151729F20088DF73 /* imagesAndFonts */,
 				AB8C89E91551692C00359B5E /* requestHTTP.h */,
+				ABE3061E1557CE390037453C /* cafe.jpeg */,
+				AB0075991557DA6100C9B5C8 /* wifiblue.png */,
+				AB0075A21557E1FB00C9B5C8 /* wifiWhiteIcon.png */,
+				AB0075A61557E6A300C9B5C8 /* toiletIcon.png */,
 				AB8C89EA1551692C00359B5E /* requestHTTP.m */,
 				AB80676C151650AD00BC4CD9 /* storeAnnotation.h */,
 				AB80676D151650AD00BC4CD9 /* storeAnnotation.m */,
 				AB80672915164E5A00BC4CD9 /* Supporting Files */,
-				AB84DB84151729F20088DF73 /* imagesAndFonts */,
 				AB80673115164E5A00BC4CD9 /* AppDelegate.h */,
 				AB80673215164E5A00BC4CD9 /* AppDelegate.m */,
 			);
 			name = etCetera;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -310,6 +332,10 @@
 				AB149FE91552C58600E6D405 /* plusIcon.png in Resources */,
 				AB149FEA1552C58600E6D405 /* questionIcon.png in Resources */,
 				AB149FEC1552C6C900E6D405 /* clockIcon.png in Resources */,
+				ABE3061F1557CE390037453C /* cafe.jpeg in Resources */,
+				AB00759A1557DA6100C9B5C8 /* wifiblue.png in Resources */,
+				AB0075A31557E1FB00C9B5C8 /* wifiWhiteIcon.png in Resources */,
+				AB0075A71557E6A300C9B5C8 /* toiletIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,7 +377,8 @@
 				AB6CA89B151C1BE600B14B5C /* SlidingMessageViewController.m in Sources */,
 				AB49D71A151EEB4100EB2E0D /* menuViewController.m in Sources */,
 				AB8C89EB1551692C00359B5E /* requestHTTP.m in Sources */,
-				AB149FEF1552CDFD00E6D405 /* helpMenuViewController.m in Sources */,
+				AB3F35B51555111800E089B7 /* annotationDetailViewer.m in Sources */,
+				AB3C917C15564C380083FE0B /* messageBoxViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
