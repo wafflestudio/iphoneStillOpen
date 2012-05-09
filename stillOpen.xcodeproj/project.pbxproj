@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AB00759A1557DA6100C9B5C8 /* wifiblue.png in Resources */ = {isa = PBXBuildFile; fileRef = AB0075991557DA6100C9B5C8 /* wifiblue.png */; };
 		AB0075A31557E1FB00C9B5C8 /* wifiWhiteIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = AB0075A21557E1FB00C9B5C8 /* wifiWhiteIcon.png */; };
 		AB0075A71557E6A300C9B5C8 /* toiletIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = AB0075A61557E6A300C9B5C8 /* toiletIcon.png */; };
 		AB149FE91552C58600E6D405 /* plusIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = AB149FE61552C58600E6D405 /* plusIcon.png */; };
 		AB149FEA1552C58600E6D405 /* questionIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = AB149FE71552C58600E6D405 /* questionIcon.png */; };
 		AB149FEC1552C6C900E6D405 /* clockIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = AB149FEB1552C6C900E6D405 /* clockIcon.png */; };
 		AB3C917C15564C380083FE0B /* messageBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB3C917B15564C380083FE0B /* messageBoxViewController.m */; };
+		AB3F2B541559102A007B5FFD /* newCafeAddWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = AB3F2B531559102A007B5FFD /* newCafeAddWindow.m */; };
 		AB3F35B51555111800E089B7 /* annotationDetailViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = AB3F35B41555111800E089B7 /* annotationDetailViewer.m */; };
 		AB49D71A151EEB4100EB2E0D /* menuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB49D719151EEB4100EB2E0D /* menuViewController.m */; };
 		AB6CA89B151C1BE600B14B5C /* SlidingMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB6CA89A151C1BE600B14B5C /* SlidingMessageViewController.m */; };
@@ -38,7 +38,6 @@
 		AB80676E151650AD00BC4CD9 /* storeAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = AB80676D151650AD00BC4CD9 /* storeAnnotation.m */; };
 		AB8C89EB1551692C00359B5E /* requestHTTP.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8C89EA1551692C00359B5E /* requestHTTP.m */; };
 		ABAA1EF315175D1400C315E6 /* orangePin.png in Resources */ = {isa = PBXBuildFile; fileRef = ABAA1EF215175D1400C315E6 /* orangePin.png */; };
-		ABE3061F1557CE390037453C /* cafe.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = ABE3061E1557CE390037453C /* cafe.jpeg */; };
 		ABED196C151B61110012580A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABED196B151B61110012580A /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,7 +52,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AB0075991557DA6100C9B5C8 /* wifiblue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wifiblue.png; sourceTree = "<group>"; };
 		AB0075A21557E1FB00C9B5C8 /* wifiWhiteIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wifiWhiteIcon.png; sourceTree = "<group>"; };
 		AB0075A61557E6A300C9B5C8 /* toiletIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toiletIcon.png; sourceTree = "<group>"; };
 		AB149FE61552C58600E6D405 /* plusIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plusIcon.png; sourceTree = "<group>"; };
@@ -61,6 +59,8 @@
 		AB149FEB1552C6C900E6D405 /* clockIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clockIcon.png; sourceTree = "<group>"; };
 		AB3C917A15564C380083FE0B /* messageBoxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = messageBoxViewController.h; sourceTree = "<group>"; };
 		AB3C917B15564C380083FE0B /* messageBoxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = messageBoxViewController.m; sourceTree = "<group>"; };
+		AB3F2B521559102A007B5FFD /* newCafeAddWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = newCafeAddWindow.h; sourceTree = "<group>"; };
+		AB3F2B531559102A007B5FFD /* newCafeAddWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = newCafeAddWindow.m; sourceTree = "<group>"; };
 		AB3F35B31555111800E089B7 /* annotationDetailViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = annotationDetailViewer.h; sourceTree = "<group>"; };
 		AB3F35B41555111800E089B7 /* annotationDetailViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = annotationDetailViewer.m; sourceTree = "<group>"; };
 		AB49D718151EEB4100EB2E0D /* menuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = menuViewController.h; sourceTree = "<group>"; };
@@ -96,7 +96,6 @@
 		AB8C89E91551692C00359B5E /* requestHTTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = requestHTTP.h; sourceTree = "<group>"; };
 		AB8C89EA1551692C00359B5E /* requestHTTP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = requestHTTP.m; sourceTree = "<group>"; };
 		ABAA1EF215175D1400C315E6 /* orangePin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orangePin.png; sourceTree = "<group>"; };
-		ABE3061E1557CE390037453C /* cafe.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cafe.jpeg; sourceTree = "<group>"; };
 		ABED196B151B61110012580A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -137,6 +136,8 @@
 				AB3F35B41555111800E089B7 /* annotationDetailViewer.m */,
 				AB3C917A15564C380083FE0B /* messageBoxViewController.h */,
 				AB3C917B15564C380083FE0B /* messageBoxViewController.m */,
+				AB3F2B521559102A007B5FFD /* newCafeAddWindow.h */,
+				AB3F2B531559102A007B5FFD /* newCafeAddWindow.m */,
 			);
 			name = messageController;
 			sourceTree = "<group>";
@@ -236,8 +237,6 @@
 			children = (
 				AB84DB84151729F20088DF73 /* imagesAndFonts */,
 				AB8C89E91551692C00359B5E /* requestHTTP.h */,
-				ABE3061E1557CE390037453C /* cafe.jpeg */,
-				AB0075991557DA6100C9B5C8 /* wifiblue.png */,
 				AB0075A21557E1FB00C9B5C8 /* wifiWhiteIcon.png */,
 				AB0075A61557E6A300C9B5C8 /* toiletIcon.png */,
 				AB8C89EA1551692C00359B5E /* requestHTTP.m */,
@@ -332,8 +331,6 @@
 				AB149FE91552C58600E6D405 /* plusIcon.png in Resources */,
 				AB149FEA1552C58600E6D405 /* questionIcon.png in Resources */,
 				AB149FEC1552C6C900E6D405 /* clockIcon.png in Resources */,
-				ABE3061F1557CE390037453C /* cafe.jpeg in Resources */,
-				AB00759A1557DA6100C9B5C8 /* wifiblue.png in Resources */,
 				AB0075A31557E1FB00C9B5C8 /* wifiWhiteIcon.png in Resources */,
 				AB0075A71557E6A300C9B5C8 /* toiletIcon.png in Resources */,
 			);
@@ -379,6 +376,7 @@
 				AB8C89EB1551692C00359B5E /* requestHTTP.m in Sources */,
 				AB3F35B51555111800E089B7 /* annotationDetailViewer.m in Sources */,
 				AB3C917C15564C380083FE0B /* messageBoxViewController.m in Sources */,
+				AB3F2B541559102A007B5FFD /* newCafeAddWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

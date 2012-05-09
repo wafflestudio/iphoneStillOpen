@@ -6,20 +6,17 @@
 //  Copyright (c) 2012 Seoul National University. All rights reserved.
 //
 
-
 #import "SlidingMessageViewController.h"
-#import "ViewController.h"
-@class ViewController;
 
 @interface messageBoxViewController : SlidingMessageViewController
 {    
+    id parent;
     UILabel * messageLabel;
     UILabel * cancelLabel;
     UITapGestureRecognizer * cancelRecognizer;
-    ViewController * parentViewController;
 }
 
--(id) initWithParentViewController:(ViewController * ) pVC;
+-(id) initWithParentViewController:(id) pVC;
 -(void) setWithMessage:(NSString * ) messageStr;
 -(void) showMessageForDuration:(int) duration;
 -(void) showCancelMessage;
@@ -27,3 +24,4 @@
 -(void) cancelMessageBox;
 
 @end
+

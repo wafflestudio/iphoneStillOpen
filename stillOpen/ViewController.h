@@ -13,9 +13,9 @@
 #import "requestHTTP.h"
 #import "annotationDetailViewer.h"
 #import "messageBoxViewController.h"
+#import "newCafeAddWindow.h"
 
 
-@class menuViewController;
 @class messageBoxViewController;
 
 
@@ -30,12 +30,10 @@
     storeAnnotation * userAnnotation;
     storeAnnotation * currentAnnotation;
     messageBoxViewController * messageBox;
+    newCafeAddWindow * cafeAddBox;
+    MKMapView * mapView;
+    BOOL plusMenuToggled;
 }
-
-
-@property (weak, nonatomic) IBOutlet MKMapView *mapView;
-@property (nonatomic) BOOL plusMenuToggled;
-
 
 -(void) setAllAnnotations;
 -(void) initializeMap;
@@ -46,13 +44,18 @@
 -(int) checkOpenClosed:(storeAnnotation * ) annotation;
 -(NSString *) makeSubtitle:(storeAnnotation *) annotation;
 
+
+-(void) moveMapWithHeight:(int) height;
+-(void) plusMenuOff;
+-(void) plusMenuOn;
 -(void) receivedLongPress:(id) inputObject;
 -(void) annotationUpdater:(NSTimer * ) timer;
 -(NSString * ) getDistanceFromCurrentLocation:(storeAnnotation *) annotation;
--(void)makeJsonStringWithAnnotation:(storeAnnotation * ) inputAnn;
--(void) checkAndAddStore: (MKMapView * ) mV;
+-(void) checkAndAddStore;
 -(void) hideCalloutView;
 
 
+
+-(void)makeJsonStringWithAnnotation:(storeAnnotation * ) inputAnn;
 
 @end

@@ -7,29 +7,22 @@
 //
 
 
-
 #define menuTagWidth 18
 
-
 #import "SlidingMessageViewController.h"
-#import "ViewController.h"
-@class ViewController;
-
 
 @interface menuViewController : SlidingMessageViewController
 {
-    ViewController * parentViewController;
-
+    id parent;
     UIImageView * addStoreMenu;
     UIImageView * toggleCurrentOpenMenu;
     UIImageView  * helpMenu;
     UILabel * firstDividerBlock;
     UILabel * secondDividerBlock;
     UILabel * menuTag;
-    
 }
 
-- (id)initWithParentViewController:(ViewController *) inputParentViewController;
+- (id)initWithParentViewController:(id) inputParentViewController;
 
 @end
 

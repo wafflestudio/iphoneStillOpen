@@ -6,13 +6,11 @@
 //  Copyright (c) 2012 Seoul National University. All rights reserved.
 //
 
-
 #import "SlidingMessageViewController.h"
 
 @interface annotationDetailViewer : SlidingMessageViewController
 {
     storeAnnotation * annotation;
-    UILabel * msgLabel;
     UILabel * titleLabel;
     UIImageView * cafeThumbnail;
     UIImageView * wifiAvailability;
@@ -20,14 +18,20 @@
     UILabel * noiseLevel;
     UILabel * quietLevel;
     UILabel * noiseLabel;
-    UILabel * quietLabel;    
-    
+    UILabel * quietLabel;
+
+    NSURLConnection* connection; //keep a reference to the connection so we can cancel download in dealloc
+	NSMutableData* data; //keep reference to the data so we can collect it as it downloads
+
+    UIActivityIndicatorView *activity;
+
 }
 
 @property (nonatomic, copy) UILabel * distanceLabel;
 
 
--(id)initWithAnnotation:(storeAnnotation *)inputAnnotation;
--(void) setWithAnnotation:(storeAnnotation *) inputAnnotation;
+- (id)initWithAnnotation:(storeAnnotation *)inputAnnotation;
+- (void) setWithAnnotation:(storeAnnotation *) inputAnnotation;
+- (void)loadImageFromURL:(NSURL*)url;
 
 @end

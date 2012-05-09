@@ -7,7 +7,14 @@
 //
 
 #import "annotationDetailViewer.h"
-#define annotationDetailBoxHeight 125
+
+#define imageHeight 99
+#define imageWidth ((imageHeight * 14) / 11)
+#define topMargin 13
+#define bottomMargin 14
+#define leftMargin 14
+#define rightMargin 12
+#define annotationDetailBoxHeight (imageHeight + topMargin + bottomMargin)
 
 @implementation annotationDetailViewer
 @synthesize distanceLabel;
@@ -18,39 +25,32 @@
     {
         
         // 가게 이름
-        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 4, 308, 40)];
+        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 3, 320 - rightMargin, 40)];
         titleLabel.font = [UIFont fontWithName:@"Futura" size:23];
-        titleLabel.textAlignment = UITextAlignmentRight;
         titleLabel.textColor = [UIColor whiteColor];
         titleLabel.backgroundColor = [UIColor clearColor];
         [self.view addSubview:titleLabel];
         
-        
-//        // 가게 설명
-//        msgLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, 285, 90)];
-//        msgLabel.font = [UIFont fontWithName:@"Futura" size:13];
-//        msgLabel.textAlignment = UITextAlignmentRight;
-//        msgLabel.textColor = [UIColor whiteColor];
-//        msgLabel.backgroundColor = [UIColor clearColor];
-//        [self.view addSubview:msgLabel];
-        
-        
         // 현재 위치로부터 거리
-        distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 39, 307, 28)];
+        distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 39, 320 - rightMargin - 1, 28)]; // 여기선 fine tuning 필요.. 
         distanceLabel.numberOfLines = 0;
         distanceLabel.font = [UIFont systemFontOfSize:11.5];
-        distanceLabel.textAlignment = UITextAlignmentRight;
         distanceLabel.textColor = [UIColor whiteColor];
         distanceLabel.backgroundColor = [UIColor clearColor];
         distanceLabel.numberOfLines = 0;
         [self.view addSubview:distanceLabel];
         
         
-        // 가게 섬네일 뷰
-        UIImage * cafeImage = [UIImage imageNamed:@"cafe.jpeg"];        
-        cafeThumbnail = [[UIImageView alloc] initWithFrame:CGRectMake(10, 12, 132, 99)];
-        [cafeThumbnail setImage:cafeImage];
+        // 가게 섬네일 뷰   
+        cafeThumbnail = [[UIImageView alloc] initWithFrame:CGRectMake(leftMargin, topMargin, imageWidth, imageHeight)];
         [self.view addSubview:cafeThumbnail];
+
+        // 이미지 로딩 뷰
+        activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        activity.frame = CGRectMake(leftMargin, topMargin, imageWidth, imageHeight);
+        [self.view addSubview:activity];        
+        
+
         
         //와이파이 등의 이미지..
         
@@ -67,32 +67,30 @@
         
         // 시끄러운 정도 등등
         
-        quietLevel = [[UILabel alloc] initWithFrame:CGRectMake(155, 92, 150, 2)];
+        quietLevel = [[UILabel alloc] initWithFrame:CGRectMake(160, 90, 145, 2)];
         quietLevel.backgroundColor = [UIColor colorWithRed:135.0/255 green:163.0/255 blue:225.0/255 alpha:1];
         [self.view addSubview:quietLevel];
         
-        noiseLevel = [[UILabel alloc] initWithFrame:CGRectMake(155, 92, 60, 2)];
+        noiseLevel = [[UILabel alloc] initWithFrame:CGRectMake(160, 90, 55, 2)];
         noiseLevel.backgroundColor = [UIColor colorWithRed:244.0/255 green:62.0/255 blue:86.0/255 alpha:1];
         [self.view addSubview:noiseLevel];
         
-        quietLabel = [[UILabel alloc] initWithFrame:CGRectMake(269, 100, 45, 10)];
-        quietLabel.text = @"조용해요";
-        quietLabel.textColor = [UIColor whiteColor];
-        quietLabel.backgroundColor = [UIColor clearColor];
-        quietLabel.font = [UIFont systemFontOfSize:10];
-        
-        [self.view addSubview:quietLabel];
-        
-        noiseLabel = [[UILabel alloc] initWithFrame:CGRectMake(155, 100, 45, 10)];        
-        noiseLabel.text = @"시끄러워요";
+        noiseLabel = [[UILabel alloc] initWithFrame:CGRectMake(159, 99, 45, 13)];        
+        noiseLabel.text = @"시끌시끌";
         noiseLabel.textColor = [UIColor whiteColor];
         noiseLabel.backgroundColor = [UIColor clearColor];
-        noiseLabel.font = [UIFont systemFontOfSize:10];
+        noiseLabel.font = [UIFont systemFontOfSize:12];
         
         [self.view addSubview:noiseLabel];
         
-
+        quietLabel = [[UILabel alloc] initWithFrame:CGRectMake(263, 99, 45, 13)];
+        quietLabel.text = @"조용조용";
+        quietLabel.textColor = [UIColor whiteColor];
+        quietLabel.backgroundColor = [UIColor clearColor];
+        quietLabel.font = [UIFont systemFontOfSize:12];
         
+        [self.view addSubview:quietLabel];
+
     }
     
     return self;
@@ -115,19 +113,64 @@
 {
     annotation = inputAnnotation;
     titleLabel.text = annotation.title;
-    msgLabel.text = annotation.description;
-    distanceLabel.text = @"";
+    distanceLabel.text = @""; // distanceLabel 은 timer에서 채워주겠지..
 
     if([annotation isKindOfClass:[MKUserLocation class]])
     {
         titleLabel.textAlignment = UITextAlignmentCenter;
-        msgLabel.text = nil;
         distanceLabel.text = @"상점을 이곳에 추가하시려면 파란색 버튼을 누르세요";
         distanceLabel.textAlignment = UITextAlignmentCenter;
     }
+    
+    else
+    {
+        titleLabel.textAlignment = UITextAlignmentRight;
+        distanceLabel.textAlignment = UITextAlignmentRight;
+        NSString * urlStr = [NSString stringWithFormat:@"http://mintengine.com:3000/%@", inputAnnotation.imageURL];
+        NSURL * imageURL = [NSURL URLWithString:urlStr];
+        [cafeThumbnail setImage:nil];
+        
+        [self loadImageFromURL:imageURL];
 
+//
+//            UIImage * cafeImage = [UIImage imageNamed:@"cafe.jpeg"];        
+//            [cafeThumbnail setImage:cafeImage];
+//            NSLog(@"Fuck it failed");
+//            NSLog(@"%@", inputAnnotation.imageURL);
+        
+        
+    }
 }
 
+
+
+
+- (void)loadImageFromURL:(NSURL*)url {
+    
+    
+    [activity startAnimating];
+	NSURLRequest* request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+	connection = [[NSURLConnection alloc] initWithRequest:request delegate:self]; //notice how delegate set to self object
+	//TODO error handling, what if connection is nil?
+}
+
+
+//the URL connection calls this repeatedly as data arrives
+- (void)connection:(NSURLConnection *)theConnection didReceiveData:(NSData *)incrementalData {
+	if (data==nil) { data = [[NSMutableData alloc] initWithCapacity:2048]; } 
+	[data appendData:incrementalData];
+}
+
+
+//the URL connection calls this once all the data has downloaded
+- (void)connectionDidFinishLoading:(NSURLConnection*)theConnection {
+	//so self data now has the complete image 
+    [activity stopAnimating];
+    
+	connection=nil;    
+    [cafeThumbnail setImage:[UIImage imageWithData:data]];
+	data=nil;
+}
 
 
 
