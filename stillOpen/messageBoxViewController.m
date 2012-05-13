@@ -14,8 +14,9 @@
 
 -(id) initWithParentViewController:(id)pVC
 {
-    if (self = [super initBoxWithWidth:320 height:messageBoxHeight color:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.7] animationDuration:0.25 fastAnimationDuration:0.1 fromX:0 fromY:-messageBoxHeight toX:0 toY:0])
+    if (self = [super initBoxWithWidth:320 height:messageBoxHeight color:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.7] animationDuration:0.25 fastAnimationDuration:0.1 fromX:0 fromY:-messageBoxHeight toX:0 toY:0 setHidden:YES])
     {
+        
         parent= pVC;
         cancelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelMessageBox)];
         
@@ -77,8 +78,8 @@
 
 -(void) cancelMessageBox
 {
-    [parent performSelector:@selector(plusMenuOff)];
-    [self hideBox];
+        [parent performSelector:@selector(plusMenuOff)];
+        [self hideBox];
 }
 
 

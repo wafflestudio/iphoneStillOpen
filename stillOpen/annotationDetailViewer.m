@@ -15,13 +15,14 @@
 #define leftMargin 14
 #define rightMargin 12
 #define annotationDetailBoxHeight (imageHeight + topMargin + bottomMargin)
+#define imageAppearanceDuration 0.5
 
 @implementation annotationDetailViewer
 @synthesize distanceLabel;
 
 -(id) init
 {
-    if (self = [super initBoxWithWidth:320 height:annotationDetailBoxHeight color:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.60] animationDuration:0.36 fastAnimationDuration:0.1 fromX:0 fromY:-annotationDetailBoxHeight toX:0 toY:0])
+    if (self = [super initBoxWithWidth:320 height:annotationDetailBoxHeight color:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.60] animationDuration:0.36 fastAnimationDuration:0.1 fromX:0 fromY:-annotationDetailBoxHeight toX:0 toY:0 setHidden:YES])
     {
         
         // 가게 이름
@@ -43,14 +44,19 @@
         
         // 가게 섬네일 뷰   
         cafeThumbnail = [[UIImageView alloc] initWithFrame:CGRectMake(leftMargin, topMargin, imageWidth, imageHeight)];
+        [cafeThumbnail setUserInteractionEnabled:YES];
+        
+        UITapGestureRecognizer * thumbnailRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showImage)];
+        [cafeThumbnail addGestureRecognizer:thumbnailRecognizer];
+        
         [self.view addSubview:cafeThumbnail];
 
+        
+        
         // 이미지 로딩 뷰
         activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         activity.frame = CGRectMake(leftMargin, topMargin, imageWidth, imageHeight);
         [self.view addSubview:activity];        
-        
-
         
         //와이파이 등의 이미지..
         
@@ -90,6 +96,9 @@
         quietLabel.font = [UIFont systemFontOfSize:12];
         
         [self.view addSubview:quietLabel];
+        
+        
+        [self.view setHidden:YES];
 
     }
     
@@ -111,6 +120,7 @@
 
 -(void) setWithAnnotation:(storeAnnotation *) inputAnnotation
 {
+    data = nil;
     annotation = inputAnnotation;
     titleLabel.text = annotation.title;
     distanceLabel.text = @""; // distanceLabel 은 timer에서 채워주겠지..
@@ -129,7 +139,6 @@
         NSString * urlStr = [NSString stringWithFormat:@"http://mintengine.com:3000/%@", inputAnnotation.imageURL];
         NSURL * imageURL = [NSURL URLWithString:urlStr];
         [cafeThumbnail setImage:nil];
-        
         [self loadImageFromURL:imageURL];
 
 //
@@ -166,12 +175,55 @@
 - (void)connectionDidFinishLoading:(NSURLConnection*)theConnection {
 	//so self data now has the complete image 
     [activity stopAnimating];
-    
 	connection=nil;    
     [cafeThumbnail setImage:[UIImage imageWithData:data]];
-	data=nil;
 }
 
+- (void) showImage
+{
 
+    iV = [[imageViewer alloc] initWithImage:[UIImage imageWithData:data] andParent:self];
+    
+    
+    //이 똥싸는거를 어떻게 좀 해야할텐데..
+    
+
+    [UIView transitionWithView:self.view
+                      duration:0.5
+                       options:UIViewAnimationOptionTransitionNone
+                    animations:
+                    ^{
+                        iV.frame = CGRectMake(0, 480, 320, 480);
+                        [self.view addSubview:iV];
+                        [UIView beginAnimations:nil context:NULL];
+                        [UIView setAnimationDuration:imageAppearanceDuration];
+                        iV.frame = CGRectMake(0,0, 320, 480);
+                        [UIView commitAnimations];
+                    }
+                    completion:^(BOOL finished)
+                    {
+                        [self performSelector:@selector(makeFrameBigAndHideStatusBar) withObject:nil afterDelay:imageAppearanceDuration];
+                    }];
+    
+}
+
+-(void) makeFrameBigAndHideStatusBar
+{
+    self.view.frame = CGRectMake(0, 0, 320, 480); 
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];    
+}
+
+-(void) makeFrameSmallAndRestoreStatusBar
+{
+     self.view.frame = CGRectMake(0, 0, 320, annotationDetailBoxHeight); 
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];  
+}
+
+-(void) closeImageView
+{
+    [iV removeFromSuperview];
+}
 
 @end

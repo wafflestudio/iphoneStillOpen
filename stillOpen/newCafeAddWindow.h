@@ -7,13 +7,25 @@
 //
 
 #import "SlidingMessageViewController.h"
+#import "requestHTTP.h"
 
 @interface newCafeAddWindow : SlidingMessageViewController
 {
     UILabel * titleLabel;
+    UILabel * cafeNameLabel;
+    UITextField * cafeName;
+    id parent;
+    
+    
+    UIButton * sendButton;
+    
+    storeAnnotation * annotation;
     
 }
 
+- (id) initWithParentViewController:(id) pVC;
 - (void) setWithAnnotation:(storeAnnotation *) inputAnnotation;
+- (void) sendToServer;
+- (void) cancelCafeAdd;
 
 @end

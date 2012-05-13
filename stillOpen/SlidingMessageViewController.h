@@ -15,6 +15,7 @@
     CGFloat animationDuration;
     CGFloat fastAnimationDuration;
     UIColor * boxColor;
+    BOOL setHidden;
     
     int fromX;
     int fromY;
@@ -32,14 +33,15 @@
 }
 
 
-- (id)initBoxWithWidth:(int)width height:(int)height color:(UIColor * ) cl animationDuration:(CGFloat)duration fastAnimationDuration:(CGFloat)duration2 fromX:(int) fX fromY:(int) fY toX:(int) tX toY:(int) tY;
+- (id)initBoxWithWidth:(int)width height:(int)height color:(UIColor * ) cl animationDuration:(CGFloat)duration fastAnimationDuration:(CGFloat)duration2 fromX:(int) fX fromY:(int) fY toX:(int) tX toY:(int) tY setHidden:(BOOL) hd;
 
-- (id)initDraggableBoxWithWidth:(int)width height:(int)height color:(UIColor * ) cl animationDuration:(CGFloat)duration fastAnimationDuration:(CGFloat)duration2 fromX:(int) fX fromY:(int) fY toX:(int) tX tY:(int) tY revealEdge:(CGFloat) rE overdraw:(CGFloat) overdraw leftTopTrigger:(CGFloat) lTT rightBottomTrigger:(CGFloat) rBT quickFlickVelocity:(CGFloat) qFV;
+- (id)initDraggableBoxWithWidth:(int)width height:(int)height color:(UIColor * ) cl animationDuration:(CGFloat)duration fastAnimationDuration:(CGFloat)duration2 fromX:(int) fX fromY:(int) fY toX:(int) tX toY:(int) tY setHidden:(BOOL) hd revealEdge:(CGFloat) rE overdraw:(CGFloat) overdraw leftTopTrigger:(CGFloat) lTT rightBottomTrigger:(CGFloat) rBT quickFlickVelocity:(CGFloat) qFV;
 
 - (void)showBox;
 - (void)showBoxFast;
 - (void)hideBox;
 - (void)hideBoxFast;
+- (void) makeInvisible;
 
 - (CGFloat) getConvertedOriginX;
 - (CGFloat)calculateOffsetForTranslationInView:(CGFloat)x;

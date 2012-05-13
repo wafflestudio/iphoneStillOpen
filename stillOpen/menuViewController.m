@@ -13,7 +13,7 @@
 
 - (id)initWithParentViewController:(id) inputParentViewController
 {
-    if (self = [super initDraggableBoxWithWidth:320 + menuTagWidth height:60 color:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5] animationDuration:0.36 fastAnimationDuration:0.17 fromX:-320 fromY:400 toX:0 tY:400 revealEdge:320 overdraw:50 leftTopTrigger:50 rightBottomTrigger:270 quickFlickVelocity:1300])
+    if (self = [super initDraggableBoxWithWidth:320 + menuTagWidth height:60 color:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5] animationDuration:0.36 fastAnimationDuration:0.17 fromX:-320 fromY:400 toX:0 toY:400 setHidden:NO revealEdge:320 overdraw:50 leftTopTrigger:50 rightBottomTrigger:270 quickFlickVelocity:1300])
     {
         
         parent = inputParentViewController;

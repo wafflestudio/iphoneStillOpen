@@ -10,10 +10,11 @@
 #import <MapKit/MapKit.h>
 #import "storeAnnotation.h"
 #import "menuViewController.h"
-#import "requestHTTP.h"
 #import "annotationDetailViewer.h"
 #import "messageBoxViewController.h"
 #import "newCafeAddWindow.h"
+
+#import "imageViewer.h"
 
 
 @class messageBoxViewController;
@@ -53,9 +54,7 @@
 -(NSString * ) getDistanceFromCurrentLocation:(storeAnnotation *) annotation;
 -(void) checkAndAddStore;
 -(void) hideCalloutView;
-
-
-
--(void)makeJsonStringWithAnnotation:(storeAnnotation * ) inputAnn;
+-(void) completeAddingCafe:(storeAnnotation * ) ann;
 
 @end
+

@@ -7,6 +7,8 @@
 //
 
 #import "SlidingMessageViewController.h"
+#import "imageViewer.h"
+
 
 @interface annotationDetailViewer : SlidingMessageViewController
 {
@@ -24,7 +26,9 @@
 	NSMutableData* data; //keep reference to the data so we can collect it as it downloads
 
     UIActivityIndicatorView *activity;
-
+    imageViewer * iV;
+    
+    
 }
 
 @property (nonatomic, copy) UILabel * distanceLabel;
@@ -33,5 +37,8 @@
 - (id)initWithAnnotation:(storeAnnotation *)inputAnnotation;
 - (void) setWithAnnotation:(storeAnnotation *) inputAnnotation;
 - (void)loadImageFromURL:(NSURL*)url;
+- (void) showImage;
+- (void) makeFrameBigAndHideStatusBar;
+- (void) makeFrameSmallAndRestoreStatusBar;
 
 @end

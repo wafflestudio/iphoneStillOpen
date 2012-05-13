@@ -23,33 +23,28 @@
 {
     
     [super viewDidLoad];
+    [self.navigationController.navigationBar setHidden:YES];
     
     [self initializeMap];
     [self setAllAnnotations];
     
     [longPress addTarget:self action:@selector(receivedLongPress:)];
     menuView = [[menuViewController alloc] initWithParentViewController:self];
+    messageBox = [[messageBoxViewController alloc] initWithParentViewController:self];
+    cafeAddBox = [[newCafeAddWindow alloc] initWithParentViewController:self];
     callOutView = [[annotationDetailViewer alloc] init];
     hiddenCallOutView = [[annotationDetailViewer alloc] init];
-    messageBox = [[messageBoxViewController alloc] initWithParentViewController:self];
-    cafeAddBox = [[newCafeAddWindow alloc] init];
-    
-    
+
     
     [self.view addSubview:menuView.view];
     [self.view addSubview:callOutView.view];
     [self.view addSubview:hiddenCallOutView.view];
     [self.view addSubview:messageBox.view];
     [self.view addSubview:cafeAddBox.view];
-    
-//    [cafeAddBox showBox];
+
 }
 
-- (void)mapView:(MKMapView *)mV regionDidChangeAnimated:(BOOL)animated
-{
-    // if addmenu toggled.. 조건추가 
-    [self checkAndAddStore];
-}
+
 
 - (void) checkAndAddStore
 {
@@ -73,28 +68,105 @@
     
 }
 
-	
+
+
+-(void) annotationUpdater:(NSTimer *) timer
+{
+    storeAnnotation * ann = [timer userInfo];
+    callOutView.distanceLabel.text = [self getDistanceFromCurrentLocation:ann];
+    ann.subtitle = [self makeSubtitle:ann];
+}
+
+
+
+-(void) receivedLongPress: (UILongPressGestureRecognizer *) inputPress
+{
+    if (inputPress.state != UIGestureRecognizerStateBegan || !plusMenuToggled) 
+        return;
+    
+    [callOutView hideBoxFast];
+    [mapView deselectAnnotation:currentAnnotation animated:YES];
+
+    if (mapView.region.span.latitudeDelta < 0.004) // 지도가 최대로 확대되어 있다면 가능하게
+    {
+        plusMenuToggled = NO;
+        
+        CGPoint pointCoords = [inputPress locationInView:mapView];
+        CLLocationCoordinate2D mapCoords = [mapView convertPoint:pointCoords toCoordinateFromView:mapView];
+        
+        if(userAnnotation != nil)
+            [mapView removeAnnotation:userAnnotation];
+        
+        userAnnotation = [[storeAnnotation alloc] init];
+        [userAnnotation setIsUserAddedAnnotation:YES];
+        
+        userAnnotation.coordinate = mapCoords;
+        userAnnotation.title = @"새로운 가게";
+        userAnnotation.subtitle = @"뭐라도 좀 써줘요";
+        
+        [mapView addAnnotation:userAnnotation];
+        
+        [messageBox setWithMessage:@"추가하시려면 파란 버튼을 누르세요"];
+        [messageBox hideCancelMessage];
+        
+        [messageBox showBox];
+    }
+}
+
+
+
+
+
+
+
+
+-(void) completeAddingCafe:(storeAnnotation * ) ann
+{
+    
+    [mapView removeAnnotation:userAnnotation];
+    [mapView addAnnotation:ann];
+    
+
+    [messageBox setWithMessage:@"새로운 카페가 추가되었습니다!"];
+    [messageBox showMessageForDuration:3];
+}
+
+
+
+
+- (void)mapView:(MKMapView *)mV regionDidChangeAnimated:(BOOL)animated
+{
+    // if addmenu toggled.. 조건추가 
+    if (plusMenuToggled)
+        [self checkAndAddStore];
+}
+
 - (void)mapView:(MKMapView *)mV didSelectAnnotationView:(MKAnnotationView *)view
-{ 
+{
+    
+    storeAnnotation * selectedAnn = [mapView.selectedAnnotations objectAtIndex:0];
+    if ([selectedAnn isUserAddedAnnotation])
+    {
+        currentAnnotation = selectedAnn;
+        return;
+    }
+    
+    
     [menuView hideBox];    //화면이 좁기때문에 메뉴바가 열려있으면 이를 미리 닫는다
     [messageBox cancelMessageBox];  // 이것과 겹치기 때문에 메시지 박스도 닫는다(그냥 닫는게 아니라 cancel 한다)
     currentAnnotation = view.annotation;    //전역변수로 저장해놓아 나중에 처리할 수 있도록..
+    
     [self moveMapWithHeight:callOutView.view.frame.size.height]; // 핀이 콜아웃 메시지보다 낮게 있으면 맵을 이동함.. 
     
     if([view.annotation isKindOfClass:[MKUserLocation class]])
         view.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeContactAdd];
     
     //  만약 이 어노테이션이 파란 점(유저로케이션) 이라면 추가 버튼을 만들어준다
-
+    
     else
-    {
-        annotationUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:0.25
-                                                             target:self
-                                                           selector:@selector(annotationUpdater:)    
-                                                           userInfo:currentAnnotation
-                                                            repeats:YES];
-    }  //   걍 폄범한 핀이라면 여기서 업데이트하는 타이머를 켠 후
-
+        annotationUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(annotationUpdater:) userInfo:currentAnnotation repeats:YES];
+        //   걍 폄범한 핀이라면 여기서 업데이트하는 타이머를 켠 후
+    
     if ([view.annotation isKindOfClass:[MKUserLocation class]])
     {
         annotationDetailViewer * temp = callOutView;
@@ -114,30 +186,26 @@
         [callOutView setWithAnnotation:currentAnnotation];
         [callOutView showBox];        
     }
-    
-//    [self makeJsonStringWithAnnotation:thisAnn];
-
 }
 
-
-- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view 
+- (void)mapView:(MKMapView *)mV didDeselectAnnotationView:(MKAnnotationView *)view 
 {
+    if ([currentAnnotation isUserAddedAnnotation])
+    {
+        [messageBox cancelMessageBox];
+        [cafeAddBox cancelCafeAdd];
+        [mapView removeAnnotation:userAnnotation];
+        return;
+    }
+    
     [annotationUpdateTimer invalidate]; // 여기서 타이머를 끈다
     
     if(![currentAnnotation isKindOfClass:[MKUserLocation class]])
-       currentAnnotation.subtitle = nil;   //매번 누를때마다 콜아웃 애니메이션 적용되도록 subtitle 지움.. (현재 위치인 파란 dot이 아닐때만)
-       
+        currentAnnotation.subtitle = nil;   //매번 누를때마다 콜아웃 애니메이션 적용되도록 subtitle 지움.. (현재 위치인 파란 dot이 아닐때만)
+    
     [callOutView hideBox];
     [menuView hideBox];
 }
-
--(void) annotationUpdater:(NSTimer *) timer
-{
-    storeAnnotation * ann = [timer userInfo];
-    callOutView.distanceLabel.text = [self getDistanceFromCurrentLocation:ann];
-    ann.subtitle = [self makeSubtitle:ann];
-}
-
 
 - (void)mapView:(MKMapView *)mV didAddAnnotationViews:(NSArray *)views
 {
@@ -157,93 +225,45 @@
     }
 }
 
-
--(void) receivedLongPress: (UILongPressGestureRecognizer *) inputPress
-{
-
-    [callOutView hideBoxFast];
-    [mapView deselectAnnotation:currentAnnotation animated:YES];
-    
-    if (!plusMenuToggled)
-        return;
-
-    if (mapView.region.span.latitudeDelta < 0.004) // 지도가 최대로 확대되어 있다면 가능하게
-    {
-        CGPoint pointCoords = [inputPress locationInView:mapView];
-        CLLocationCoordinate2D mapCoords = [mapView convertPoint:pointCoords toCoordinateFromView:mapView];
-        
-        if(userAnnotation != nil)
-            [mapView removeAnnotation:userAnnotation];
-        
-        userAnnotation = [[storeAnnotation alloc] init];
-        [userAnnotation setIsUserAddedAnnotation:YES];
-        
-        userAnnotation.coordinate = mapCoords;
-        userAnnotation.title = @"새로운 가게";
-        userAnnotation.subtitle = @"뭐라도 좀 써줘요";
-        
-        [mapView addAnnotation:userAnnotation];
-        
-        [messageBox setWithMessage:@"해당 지점을 추가하시려면 파란 버튼을 누르세요"];
-        [messageBox hideCancelMessage];
-        
-        [messageBox showBox];
-    }
-}
-
-
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
-    MKUserLocation * annotation = view.annotation;
     
+    [cafeAddBox setWithAnnotation:view.annotation];
     [cafeAddBox showBox];
+    
     [self moveMapWithHeight:cafeAddBox.view.frame.size.height];
     
-    
-    
-    /*
-    requestHTTP * req = [[requestHTTP alloc] initWithURL:[NSURL URLWithString:@"http://mintengine.com:3000/stores.json"]];
-    [req setStoreValue:@"newStore" forKey:@"Name"];
-    [req setStoreValue:@"newDesc" forKey:@"Description"];
-    [req setStoreValue:@"0000" forKey:@"Opentime"];
-    [req setStoreValue:@"0000" forKey:@"Closetime"];
-    [req setStoreValue:[NSString stringWithFormat:@"%f", annotation.coordinate.latitude] forKey:@"Latitude"];
-    [req setStoreValue:[NSString stringWithFormat:@"%f", annotation.coordinate.longitude]  forKey:@"Longitude"];
-    
-    [req synchronousRequestWithPost];
-     */
-     
+    [callOutView hideBox];
+    [messageBox hideBox];
 }
 
-
-- (void)makeJsonStringWithAnnotation:(storeAnnotation * ) inputAnn
-{
-    NSError *error;
-    NSMutableDictionary * newJsonDic = [[NSMutableDictionary alloc] init];
+- (MKAnnotationView *) mapView:(MKMapView *) mV viewForAnnotation:(id ) annotation {
     
-    NSLog(@"%@", inputAnn.title);
-
-    [newJsonDic setObject:inputAnn.title forKey:@"Name"];
-   // [newJsonDic setObject:inputAnn.subtitle forKey:@"Description"];
+    if (annotation == mapView.userLocation) // 만약 유저 로케이션이면 (파란 점) 핀을 꼽지 않는다
+        return nil;
     
-    [newJsonDic setObject:[NSString stringWithFormat:@"%d", inputAnn.Opentime] forKey:@"Opentime"];
-    [newJsonDic setObject:[NSString stringWithFormat:@"%d", inputAnn.Closetime] forKey:@"Closetime"];
-    [newJsonDic setObject:[NSString stringWithFormat:@"%f", inputAnn.coordinate.latitude] forKey:@"Latitude"];
-    [newJsonDic setObject:[NSString stringWithFormat:@"%f", inputAnn.coordinate.longitude] forKey:@"Longitude"];
     
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:newJsonDic options:NSJSONWritingPrettyPrinted error:&error];
-    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    NSLog(@"jsonString => %@", jsonString);
+    MKPinAnnotationView *customPinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:nil];
     
-} 
-
-
-
-
-
-
-
-
+    
+    if ([self checkOpenClosed:annotation] == 0)   // 24시간 오픈이면 보라색
+        customPinView.pinColor = MKPinAnnotationColorPurple;
+    
+    else if ([self checkOpenClosed:annotation] == 1)    //  지금 열려있으면 초록색
+        customPinView.pinColor = MKPinAnnotationColorGreen;
+    
+    else if ([self checkOpenClosed:annotation] == 2)    //  가게가 닫기 한시간 이내이면 오렌지색
+    {
+        UIImage * image = [UIImage imageNamed:@"orangePin.png"];
+        [customPinView setImage:image];
+    }
+    
+    //  그것도 아닌 경우 - 가게가 현재 닫혀있는 경우에는 스타일을 먹이지 않는다 (그냥 빨간색으로 둔다)
+    
+    customPinView.canShowCallout = YES; //  콜아웃을 나오도록
+    return customPinView;
+    
+}
 
 -(void) moveMapWithHeight:(int) height
 {
@@ -305,7 +325,6 @@
             s.title = [item valueForKey:@"Name"];
             s.Opentime = [[item valueForKey:@"Opentime"] intValue];
             s.Closetime = [[item valueForKey:@"Closetime"] intValue];
-            s.description = [item valueForKey:@"Description"];
             s.imageURL = [item valueForKey:@"Image"];
             
             //      s.subtitle = [self makeSubtitle:s]; 
@@ -328,33 +347,7 @@
     
 }
 
-- (MKAnnotationView *) mapView:(MKMapView *) mV viewForAnnotation:(id ) annotation {
-    
-    if (annotation == mapView.userLocation) // 만약 유저 로케이션이면 (파란 점) 핀을 꼽지 않는다
-        return nil;
-    
-    
-    MKPinAnnotationView *customPinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:nil];
-    
-    
-    if ([self checkOpenClosed:annotation] == 0)   // 24시간 오픈이면 보라색
-        customPinView.pinColor = MKPinAnnotationColorPurple;
-    
-    else if ([self checkOpenClosed:annotation] == 1)    //  지금 열려있으면 초록색
-        customPinView.pinColor = MKPinAnnotationColorGreen;
-    
-    else if ([self checkOpenClosed:annotation] == 2)    //  가게가 닫기 한시간 이내이면 오렌지색
-    {
-        UIImage * image = [UIImage imageNamed:@"orangePin.png"];
-        [customPinView setImage:image];
-    }
-    
-    //  그것도 아닌 경우 - 가게가 현재 닫혀있는 경우에는 스타일을 먹이지 않는다 (그냥 빨간색으로 둔다)
-    
-    customPinView.canShowCallout = YES; //  콜아웃을 나오도록
-    return customPinView;
-    
-}
+
 
 -(NSString *) makeSubtitle:(storeAnnotation *) annotation
 {
@@ -475,26 +468,7 @@
     region.span.longitudeDelta = 0.005;    
     mapView.region = region;
 }
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-}
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[super viewWillDisappear:animated];
-}
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations

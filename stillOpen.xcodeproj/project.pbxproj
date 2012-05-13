@@ -12,6 +12,7 @@
 		AB149FE91552C58600E6D405 /* plusIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = AB149FE61552C58600E6D405 /* plusIcon.png */; };
 		AB149FEA1552C58600E6D405 /* questionIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = AB149FE71552C58600E6D405 /* questionIcon.png */; };
 		AB149FEC1552C6C900E6D405 /* clockIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = AB149FEB1552C6C900E6D405 /* clockIcon.png */; };
+		AB1F1F09155ED2AB00FD0012 /* imageViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1F1F08155ED2AB00FD0012 /* imageViewer.m */; };
 		AB3C917C15564C380083FE0B /* messageBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB3C917B15564C380083FE0B /* messageBoxViewController.m */; };
 		AB3F2B541559102A007B5FFD /* newCafeAddWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = AB3F2B531559102A007B5FFD /* newCafeAddWindow.m */; };
 		AB3F35B51555111800E089B7 /* annotationDetailViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = AB3F35B41555111800E089B7 /* annotationDetailViewer.m */; };
@@ -57,6 +58,8 @@
 		AB149FE61552C58600E6D405 /* plusIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plusIcon.png; sourceTree = "<group>"; };
 		AB149FE71552C58600E6D405 /* questionIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = questionIcon.png; sourceTree = "<group>"; };
 		AB149FEB1552C6C900E6D405 /* clockIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clockIcon.png; sourceTree = "<group>"; };
+		AB1F1F07155ED2AB00FD0012 /* imageViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imageViewer.h; sourceTree = "<group>"; };
+		AB1F1F08155ED2AB00FD0012 /* imageViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imageViewer.m; sourceTree = "<group>"; };
 		AB3C917A15564C380083FE0B /* messageBoxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = messageBoxViewController.h; sourceTree = "<group>"; };
 		AB3C917B15564C380083FE0B /* messageBoxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = messageBoxViewController.m; sourceTree = "<group>"; };
 		AB3F2B521559102A007B5FFD /* newCafeAddWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = newCafeAddWindow.h; sourceTree = "<group>"; };
@@ -182,6 +185,8 @@
 				AB80673415164E5A00BC4CD9 /* ViewController.h */,
 				AB80673515164E5A00BC4CD9 /* ViewController.m */,
 				AB80673715164E5A00BC4CD9 /* ViewController_iPhone.xib */,
+				AB1F1F07155ED2AB00FD0012 /* imageViewer.h */,
+				AB1F1F08155ED2AB00FD0012 /* imageViewer.m */,
 			);
 			path = stillOpen;
 			sourceTree = "<group>";
@@ -377,6 +382,7 @@
 				AB3F35B51555111800E089B7 /* annotationDetailViewer.m in Sources */,
 				AB3C917C15564C380083FE0B /* messageBoxViewController.m in Sources */,
 				AB3F2B541559102A007B5FFD /* newCafeAddWindow.m in Sources */,
+				AB1F1F09155ED2AB00FD0012 /* imageViewer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

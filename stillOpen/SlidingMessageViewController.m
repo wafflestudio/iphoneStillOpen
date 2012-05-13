@@ -5,7 +5,7 @@
 
 
 
-- (id)initBoxWithWidth:(int)width height:(int)height color:(UIColor * ) cl animationDuration:(CGFloat)duration fastAnimationDuration:(CGFloat)duration2 fromX:(int) fX fromY:(int) fY toX:(int) tX toY:(int) tY
+- (id)initBoxWithWidth:(int)width height:(int)height color:(UIColor * ) cl animationDuration:(CGFloat)duration fastAnimationDuration:(CGFloat)duration2 fromX:(int) fX fromY:(int) fY toX:(int) tX toY:(int) tY setHidden:(BOOL) hd
 {
     
     if (self = [super init])
@@ -24,6 +24,7 @@
         fromY = fY;
         toX = tX;
         toY = tY;
+        setHidden = hd;
         
         
         self.view = [[UIView alloc] initWithFrame:CGRectMake(fromX, fromY, boxWidth, boxHeight)];
@@ -35,9 +36,9 @@
     return self;
 }
 
-- (id)initDraggableBoxWithWidth:(int)width height:(int)height color:(UIColor * ) cl animationDuration:(CGFloat)duration fastAnimationDuration:(CGFloat)duration2 fromX:(int) fX fromY:(int) fY toX:(int) tX tY:(int) tY revealEdge:(CGFloat) rE overdraw:(CGFloat) overdraw leftTopTrigger:(CGFloat) lTT rightBottomTrigger:(CGFloat) rBT quickFlickVelocity:(CGFloat) qFV
+- (id)initDraggableBoxWithWidth:(int)width height:(int)height color:(UIColor * ) cl animationDuration:(CGFloat)duration fastAnimationDuration:(CGFloat)duration2 fromX:(int) fX fromY:(int) fY toX:(int) tX toY:(int) tY setHidden:(BOOL) hd revealEdge:(CGFloat) rE overdraw:(CGFloat) overdraw leftTopTrigger:(CGFloat) lTT rightBottomTrigger:(CGFloat) rBT quickFlickVelocity:(CGFloat) qFV
 {
-    if (self = [self initBoxWithWidth:width height:height color:cl animationDuration:duration fastAnimationDuration:duration2 fromX:fX fromY:fY toX:tX toY:tY])
+    if (self = [self initBoxWithWidth:width height:height color:cl animationDuration:duration fastAnimationDuration:duration2 fromX:fX fromY:fY toX:tX toY:tY setHidden:hd])
     {
         REVEAL_EDGE = rE;
         REVEAL_EDGE_OVERDRAW = overdraw;
@@ -55,6 +56,8 @@
 
 - (void)showBox
 {
+    [self.view setHidden:NO];
+    
     CGRect frame = self.view.frame;
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:animationDuration];
@@ -65,10 +68,13 @@
     self.view.frame = frame;  
     [UIView commitAnimations];
     isClosed = NO;
+
 }
 
 - (void)showBoxFast
 {
+    [self.view setHidden:NO];
+
     CGRect frame = self.view.frame;
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:fastAnimationDuration];
@@ -79,6 +85,7 @@
     self.view.frame = frame;  
     [UIView commitAnimations];
     isClosed = NO;
+    
 }
 
 - (void)hideBox;
@@ -93,6 +100,9 @@
     self.view.frame = frame;  
     [UIView commitAnimations];
     isClosed = YES;
+    
+    if (setHidden)
+        [self performSelector:@selector(makeInvisible) withObject:nil afterDelay:animationDuration];
 }
 
 
@@ -108,7 +118,14 @@
     self.view.frame = frame;  
     [UIView commitAnimations];
     isClosed = YES;
+    
+    if (setHidden)
+        [self performSelector:@selector(makeInvisible) withObject:nil afterDelay:fastAnimationDuration];
+}
 
+- (void) makeInvisible
+{
+    [self.view setHidden:YES];
 }
 
 -(void) boxPan:(UIPanGestureRecognizer * ) recognizer

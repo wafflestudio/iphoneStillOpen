@@ -12,7 +12,7 @@
 @implementation storeAnnotation
 
 @synthesize coordinate,title,subtitle;
-@synthesize Opentime, Closetime, description, imageURL;
+@synthesize Opentime, Closetime, imageURL;
 @synthesize isUserAddedAnnotation;
 
 
