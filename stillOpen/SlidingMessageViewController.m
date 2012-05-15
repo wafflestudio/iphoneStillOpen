@@ -224,5 +224,10 @@
 	return result;
 }
 
+- (BOOL) isClosed
+{
+    return isClosed;
+}
+
 
 @end

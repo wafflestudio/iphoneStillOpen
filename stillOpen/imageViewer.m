@@ -8,6 +8,8 @@
 
 #import "imageViewer.h"
 #define animationDuration 0.3
+#define ZOOM_STEP 1.5
+#define ZOOM_VIEW_TAG 100
 
 @implementation imageViewer
 
@@ -25,6 +27,22 @@
         imageToDisplay = img;
         imageView = [[UIImageView alloc] initWithImage:imageToDisplay];        
         [self addSubview:imageView];
+        
+        
+        
+        // add gesture recognizers to the image view
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+        UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
+        
+        [singleTap setNumberOfTapsRequired:1];
+        [doubleTap setNumberOfTapsRequired:2];
+        [singleTap requireGestureRecognizerToFail:doubleTap];
+        
+        
+        [imageView addGestureRecognizer:singleTap];
+        [imageView addGestureRecognizer:doubleTap];
+        [imageView setUserInteractionEnabled:YES];
+        
         
         CGSize imageSize = imageView.image.size;
         CGSize maxSize = self.frame.size;
@@ -95,28 +113,28 @@
 }
 
 
--(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [super touchesBegan:touches withEvent:event];
+- (void)handleSingleTap:(UIGestureRecognizer *)gestureRecognizer {
+
+    [self toggleStatusAndNavigationBar];
     
-    UITouch * touch = [touches anyObject];
+}
+
+- (void)handleDoubleTap:(UIGestureRecognizer *)gestureRecognizer {
+
     
-    if ([touch tapCount] == 1)
-    {
-        [self toggleStatusAndNavigationBar];
-    }
-    
-    if ([touch tapCount] == 2)
-    {
         if (self.zoomScale == self.minimumZoomScale)
             [self setZoomScale:doubleClickZoomScale animated:YES];
         else if (self.zoomScale == doubleClickZoomScale)
             [self setZoomScale:self.minimumZoomScale animated:YES];
         else
             [self setZoomScale:doubleClickZoomScale animated:YES];
-    }
+    
 }
 
+
+//- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+//    return [self viewWithTag:ZOOM_VIEW_TAG];
+//}
 
 -(void) toggleStatusAndNavigationBar
 {

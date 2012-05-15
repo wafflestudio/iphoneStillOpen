@@ -9,6 +9,7 @@
 #import "ViewController.h"
 
 
+
 @implementation ViewController
 
 
@@ -41,9 +42,22 @@
     [self.view addSubview:hiddenCallOutView.view];
     [self.view addSubview:messageBox.view];
     [self.view addSubview:cafeAddBox.view];
+    
+    mapviewGestureRecognizer * tapInterceptor = [[mapviewGestureRecognizer alloc] init];
+    tapInterceptor.touchesBeganCallback = ^(NSSet * touches, UIEvent * event){
+        [self hideMenuBar];
+        
+    };
+    [mapView addGestureRecognizer:tapInterceptor];
+    
 
 }
 
+-(void) hideMenuBar
+{
+    if ([callOutView isClosed])
+        [menuView hideBox];
+}
 
 
 - (void) checkAndAddStore
@@ -145,6 +159,7 @@
 {
     
     storeAnnotation * selectedAnn = [mapView.selectedAnnotations objectAtIndex:0];
+    
     if ([selectedAnn isUserAddedAnnotation])
     {
         currentAnnotation = selectedAnn;

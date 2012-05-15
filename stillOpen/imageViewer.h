@@ -22,4 +22,5 @@
 -(void) toggleStatusAndNavigationBar;
 -(void) hideNavigationBar;
 -(void) closeView;
+
 @end

@@ -13,8 +13,8 @@
 #import "annotationDetailViewer.h"
 #import "messageBoxViewController.h"
 #import "newCafeAddWindow.h"
-
 #import "imageViewer.h"
+#import "mapviewGestureRecognizer.h"
 
 
 @class messageBoxViewController;
@@ -55,6 +55,9 @@
 -(void) checkAndAddStore;
 -(void) hideCalloutView;
 -(void) completeAddingCafe:(storeAnnotation * ) ann;
+
+-(void) hideMenuBar;
+
 
 @end
 

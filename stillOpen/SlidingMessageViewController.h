@@ -21,7 +21,7 @@
     int fromY;
     int toX;
     int toY;
-    int isClosed;
+    BOOL isClosed;
     
     // ------------------- // 이 아래로 draggable box
     
@@ -45,5 +45,7 @@
 
 - (CGFloat) getConvertedOriginX;
 - (CGFloat)calculateOffsetForTranslationInView:(CGFloat)x;
+
+- (BOOL) isClosed;
 
 @end

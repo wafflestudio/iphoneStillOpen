@@ -13,6 +13,8 @@
 		AB149FEA1552C58600E6D405 /* questionIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = AB149FE71552C58600E6D405 /* questionIcon.png */; };
 		AB149FEC1552C6C900E6D405 /* clockIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = AB149FEB1552C6C900E6D405 /* clockIcon.png */; };
 		AB1F1F09155ED2AB00FD0012 /* imageViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1F1F08155ED2AB00FD0012 /* imageViewer.m */; };
+		AB2408981560A502001244E5 /* imageViewerController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB2408971560A502001244E5 /* imageViewerController.m */; };
+		AB24089B1560A690001244E5 /* 1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AB24089A1560A690001244E5 /* 1.jpeg */; };
 		AB3C917C15564C380083FE0B /* messageBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB3C917B15564C380083FE0B /* messageBoxViewController.m */; };
 		AB3F2B541559102A007B5FFD /* newCafeAddWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = AB3F2B531559102A007B5FFD /* newCafeAddWindow.m */; };
 		AB3F35B51555111800E089B7 /* annotationDetailViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = AB3F35B41555111800E089B7 /* annotationDetailViewer.m */; };
@@ -40,6 +42,7 @@
 		AB8C89EB1551692C00359B5E /* requestHTTP.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8C89EA1551692C00359B5E /* requestHTTP.m */; };
 		ABAA1EF315175D1400C315E6 /* orangePin.png in Resources */ = {isa = PBXBuildFile; fileRef = ABAA1EF215175D1400C315E6 /* orangePin.png */; };
 		ABED196C151B61110012580A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABED196B151B61110012580A /* CoreLocation.framework */; };
+		ABF554E91562B5FA0080240C /* mapviewGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF554E81562B5FA0080240C /* mapviewGestureRecognizer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +63,9 @@
 		AB149FEB1552C6C900E6D405 /* clockIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clockIcon.png; sourceTree = "<group>"; };
 		AB1F1F07155ED2AB00FD0012 /* imageViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imageViewer.h; sourceTree = "<group>"; };
 		AB1F1F08155ED2AB00FD0012 /* imageViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imageViewer.m; sourceTree = "<group>"; };
+		AB2408961560A502001244E5 /* imageViewerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imageViewerController.h; sourceTree = "<group>"; };
+		AB2408971560A502001244E5 /* imageViewerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imageViewerController.m; sourceTree = "<group>"; };
+		AB24089A1560A690001244E5 /* 1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpeg; sourceTree = "<group>"; };
 		AB3C917A15564C380083FE0B /* messageBoxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = messageBoxViewController.h; sourceTree = "<group>"; };
 		AB3C917B15564C380083FE0B /* messageBoxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = messageBoxViewController.m; sourceTree = "<group>"; };
 		AB3F2B521559102A007B5FFD /* newCafeAddWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = newCafeAddWindow.h; sourceTree = "<group>"; };
@@ -100,6 +106,8 @@
 		AB8C89EA1551692C00359B5E /* requestHTTP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = requestHTTP.m; sourceTree = "<group>"; };
 		ABAA1EF215175D1400C315E6 /* orangePin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orangePin.png; sourceTree = "<group>"; };
 		ABED196B151B61110012580A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		ABF554E71562B5FA0080240C /* mapviewGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mapviewGestureRecognizer.h; sourceTree = "<group>"; };
+		ABF554E81562B5FA0080240C /* mapviewGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mapviewGestureRecognizer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +195,10 @@
 				AB80673715164E5A00BC4CD9 /* ViewController_iPhone.xib */,
 				AB1F1F07155ED2AB00FD0012 /* imageViewer.h */,
 				AB1F1F08155ED2AB00FD0012 /* imageViewer.m */,
+				AB2408961560A502001244E5 /* imageViewerController.h */,
+				AB2408971560A502001244E5 /* imageViewerController.m */,
+				ABF554E71562B5FA0080240C /* mapviewGestureRecognizer.h */,
+				ABF554E81562B5FA0080240C /* mapviewGestureRecognizer.m */,
 			);
 			path = stillOpen;
 			sourceTree = "<group>";
@@ -242,6 +254,7 @@
 			children = (
 				AB84DB84151729F20088DF73 /* imagesAndFonts */,
 				AB8C89E91551692C00359B5E /* requestHTTP.h */,
+				AB24089A1560A690001244E5 /* 1.jpeg */,
 				AB0075A21557E1FB00C9B5C8 /* wifiWhiteIcon.png */,
 				AB0075A61557E6A300C9B5C8 /* toiletIcon.png */,
 				AB8C89EA1551692C00359B5E /* requestHTTP.m */,
@@ -338,6 +351,7 @@
 				AB149FEC1552C6C900E6D405 /* clockIcon.png in Resources */,
 				AB0075A31557E1FB00C9B5C8 /* wifiWhiteIcon.png in Resources */,
 				AB0075A71557E6A300C9B5C8 /* toiletIcon.png in Resources */,
+				AB24089B1560A690001244E5 /* 1.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,6 +397,8 @@
 				AB3C917C15564C380083FE0B /* messageBoxViewController.m in Sources */,
 				AB3F2B541559102A007B5FFD /* newCafeAddWindow.m in Sources */,
 				AB1F1F09155ED2AB00FD0012 /* imageViewer.m in Sources */,
+				AB2408981560A502001244E5 /* imageViewerController.m in Sources */,
+				ABF554E91562B5FA0080240C /* mapviewGestureRecognizer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
