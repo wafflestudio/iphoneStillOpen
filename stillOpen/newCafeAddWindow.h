@@ -13,7 +13,12 @@
 {
     UILabel * titleLabel;
     UILabel * cafeNameLabel;
+    UILabel * openTimeLabel;
+    UILabel * closeTimeLabel;
     UITextField * cafeName;
+    UITextField * openTime;
+    UITextField * closeTime;
+    
     id parent;
     
     

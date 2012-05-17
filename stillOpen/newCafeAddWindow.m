@@ -39,12 +39,37 @@
         [self.view addSubview:cafeNameLabel];
         
         
+        openTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 90, 80, 26)];
+        openTimeLabel.text = @"오픈시간";
+        openTimeLabel.textColor = [UIColor whiteColor];
+        openTimeLabel.backgroundColor = [UIColor clearColor];
+        [self.view addSubview:openTimeLabel];
+
+        openTime = [[UITextField alloc] initWithFrame:CGRectMake(120, 90, 185, 26)];
+        openTime.backgroundColor = [UIColor whiteColor];
+        [self.view addSubview:openTime];
+        
+        closeTime = [[UITextField alloc] initWithFrame:CGRectMake(120, 120, 185, 26)];
+        closeTime.backgroundColor = [UIColor whiteColor];
+        [self.view addSubview:closeTime];
+
+        
+        
+        closeTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 120, 80, 26)];
+        closeTimeLabel.text = @"폐점시간";
+        closeTimeLabel.textColor = [UIColor whiteColor];
+        closeTimeLabel.backgroundColor = [UIColor clearColor];
+        [self.view addSubview:closeTimeLabel];
+        
+        
+        
+        
         cafeName = [[UITextField alloc] initWithFrame:CGRectMake(120, 60, 185, 26)];
         cafeName.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:cafeName];
         
         
-        sendButton = [[UIButton alloc] initWithFrame:CGRectMake(205, 95, 100, 26)];
+        sendButton = [[UIButton alloc] initWithFrame:CGRectMake(205, 155, 100, 26)];
         sendButton.backgroundColor = [UIColor whiteColor];
         sendButton.titleLabel.font = [UIFont systemFontOfSize:14];
         
@@ -66,18 +91,22 @@
 - (void) sendToServer
 {
     [annotation setTitle:cafeName.text];
-    [annotation setIsUserAddedAnnotation:NO];
+    [annotation setOpentime:[openTime.text intValue]];
+    [annotation setClosetime:[closeTime.text intValue]];
     
+    [annotation setIsUserAddedAnnotation:NO];
     
     requestHTTP * req = [[requestHTTP alloc] initWithURL:[NSURL URLWithString:@"http://mintengine.com:3000/stores.json"]];
     [req setStoreValue:annotation.title forKey:@"Name"];
-    [req setStoreValue:@"0000" forKey:@"Opentime"];
-    [req setStoreValue:@"0000" forKey:@"Closetime"];
+    [req setStoreValue:openTime.text forKey:@"Opentime"];
+    [req setStoreValue:closeTime.text forKey:@"Closetime"];
     [req setStoreValue:[NSString stringWithFormat:@"%f", annotation.coordinate.latitude] forKey:@"Latitude"];
     [req setStoreValue:[NSString stringWithFormat:@"%f", annotation.coordinate.longitude]  forKey:@"Longitude"];
     [req synchronousRequestWithPost];
     
     [cafeName resignFirstResponder];
+    [openTime resignFirstResponder];
+    [closeTime resignFirstResponder];
 
     
     [parent performSelector:@selector(completeAddingCafe:) withObject:annotation];

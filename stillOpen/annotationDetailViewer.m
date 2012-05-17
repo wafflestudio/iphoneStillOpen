@@ -8,13 +8,10 @@
 
 #import "annotationDetailViewer.h"
 
-#define imageHeight 96
-#define imageWidth ((imageHeight * 32) / 24)
-#define topMargin 13
-#define bottomMargin 13
-#define leftMargin 14
-#define rightMargin 12
-#define annotationDetailBoxHeight (imageHeight + topMargin + bottomMargin)
+#define imageHeight 108
+#define imageWidth ((imageHeight * 4) / 3)
+#define rightMargin 10
+#define annotationDetailBoxHeight imageHeight
 #define imageAppearanceDuration 0.5
 
 @implementation annotationDetailViewer
@@ -26,14 +23,14 @@
     {
         
         // 가게 이름
-        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 4, 320 - rightMargin, 40)];
+        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320 - rightMargin, 39)];
         titleLabel.font = [UIFont fontWithName:@"Futura" size:20];
         titleLabel.textColor = [UIColor whiteColor];
         titleLabel.backgroundColor = [UIColor clearColor];
         [self.view addSubview:titleLabel];
         
         // 현재 위치로부터 거리
-        distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 37, 320 - rightMargin - 1, 28)]; // 여기선 fine tuning 필요.. 
+        distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 33, 320 - rightMargin - 1, 28)]; // 여기선 fine tuning 필요.. 
         distanceLabel.numberOfLines = 0;
         distanceLabel.font = [UIFont systemFontOfSize:10.5];
         distanceLabel.textColor = [UIColor whiteColor];
@@ -43,7 +40,8 @@
         
         
         // 가게 섬네일 뷰   
-        cafeThumbnail = [[UIImageView alloc] initWithFrame:CGRectMake(leftMargin, topMargin, imageWidth, imageHeight)];
+//        cafeThumbnail = [[UIImageView alloc] initWithFrame:CGRectMake(leftMargin, topMargin, imageWidth, imageHeight)];
+        cafeThumbnail = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, imageWidth , imageHeight)];
         [cafeThumbnail setUserInteractionEnabled:YES];
         
         UITapGestureRecognizer * thumbnailRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showImage)];
@@ -54,33 +52,33 @@
         
         // 이미지 로딩 뷰
         activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        activity.frame = CGRectMake(leftMargin, topMargin, imageWidth, imageHeight);
+        activity.frame = CGRectMake(0, 0, imageWidth, imageHeight);
         [self.view addSubview:activity];        
         
         //와이파이 등의 이미지..
         
         UIImage * wifiImage = [UIImage imageNamed:@"wifiWhiteIcon.png"];
-        wifiAvailability = [[UIImageView alloc] initWithFrame:CGRectMake(288, 68, 16, 13)];
+        wifiAvailability = [[UIImageView alloc] initWithFrame:CGRectMake(291, 64, 16, 13)];
         [wifiAvailability setImage:wifiImage];
         [self.view addSubview:wifiAvailability];
         
         UIImage * toiletImage = [UIImage imageNamed:@"toiletIcon.png"];
-        toiletAvailability= [[UIImageView alloc] initWithFrame:CGRectMake(268, 68, 16, 13)];
+        toiletAvailability= [[UIImageView alloc] initWithFrame:CGRectMake(271, 64, 16, 13)];
         [toiletAvailability setImage:toiletImage];
         [self.view addSubview:toiletAvailability];
         
         
         // 시끄러운 정도 등등
         
-        quietLevel = [[UILabel alloc] initWithFrame:CGRectMake(156, 87, 148, 2)];
+        quietLevel = [[UILabel alloc] initWithFrame:CGRectMake(158, 83, 150, 2)];
         quietLevel.backgroundColor = [UIColor colorWithRed:135.0/255 green:163.0/255 blue:225.0/255 alpha:1];
         [self.view addSubview:quietLevel];
         
-        noiseLevel = [[UILabel alloc] initWithFrame:CGRectMake(156, 87, 60, 2)];
+        noiseLevel = [[UILabel alloc] initWithFrame:CGRectMake(158, 83, 60, 2)];
         noiseLevel.backgroundColor = [UIColor colorWithRed:244.0/255 green:62.0/255 blue:86.0/255 alpha:1];
         [self.view addSubview:noiseLevel];
         
-        noiseLabel = [[UILabel alloc] initWithFrame:CGRectMake(155, 96, 45, 13)];        
+        noiseLabel = [[UILabel alloc] initWithFrame:CGRectMake(156, 90, 45, 13)];        
         noiseLabel.text = @"시끌시끌";
         noiseLabel.textColor = [UIColor whiteColor];
         noiseLabel.backgroundColor = [UIColor clearColor];
@@ -88,7 +86,7 @@
         
         [self.view addSubview:noiseLabel];
         
-        quietLabel = [[UILabel alloc] initWithFrame:CGRectMake(266, 96, 45, 13)];
+        quietLabel = [[UILabel alloc] initWithFrame:CGRectMake(269, 90, 45, 13)];
         quietLabel.text = @"조용조용";
         quietLabel.textColor = [UIColor whiteColor];
         quietLabel.backgroundColor = [UIColor clearColor];

@@ -46,11 +46,9 @@
     mapviewGestureRecognizer * tapInterceptor = [[mapviewGestureRecognizer alloc] init];
     tapInterceptor.touchesBeganCallback = ^(NSSet * touches, UIEvent * event){
         [self hideMenuBar];
-        
     };
     [mapView addGestureRecognizer:tapInterceptor];
     
-
 }
 
 -(void) hideMenuBar
@@ -126,9 +124,6 @@
         [messageBox showBox];
     }
 }
-
-
-
 
 
 
